@@ -1,0 +1,30 @@
+{
+  "name": "jchat",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./src/bin/www"
+  },
+  "dependencies": {
+    "babel": "^6.5.2",
+    "body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "hjs": "~0.0.6",
+    "morgan": "~1.6.1",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
+    "serve-favicon": "~2.3.0",
+    "socket.io": "^1.4.6"
+  },
+  "devDependencies": {
+    "babel-core": "^6.9.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1",
+    "webpack": "^1.13.0"
+  }
+}
