@@ -26,7 +26,7 @@ export default class Post extends Component {
                 <div className="mdl-card__actions">
                     <button className="mdl-button"> <i className="material-icons">grade</i> </button>
                     <button className="mdl-button"> <i className="material-icons">thumb_up</i> </button>
-                    <button className="mdl-button"> <i className="material-icons">comment</i> </button>
+                    <button className="mdl-button"> <i className="material-icons">reply</i> </button>
                 </div>
 
             </div>

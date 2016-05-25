@@ -20358,7 +20358,7 @@
 	                        _react2.default.createElement(
 	                            "i",
 	                            { className: "material-icons" },
-	                            "comment"
+	                            "reply"
 	                        ),
 	                        " "
 	                    )

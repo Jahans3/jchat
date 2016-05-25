@@ -1,8 +1,10 @@
 @import "../variables";
 
 .mdl-card__title {
-  background-image: url('/images/potpourri.png');
+  background-color: $background-purple;//url('/images/potpourri.png');
   background-size: 100%;
+  height: 50px;
+  padding: 11px 16px !important;
 }
 
 .mdl-card__title-text a {
