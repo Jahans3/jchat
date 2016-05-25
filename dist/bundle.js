@@ -20185,8 +20185,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
-	var App = function (_React$Component) {
-	    _inherits(App, _React$Component);
+	var App = function (_Component) {
+	    _inherits(App, _Component);
 
 	    function App() {
 	        _classCallCheck(this, App);
@@ -20234,6 +20234,7 @@
 	                null,
 	                message
 	            ));
+
 	            this.setState({ output: this.messages });
 	        }
 	    }, {
@@ -20260,7 +20261,7 @@
 	    }]);
 
 	    return App;
-	}(_react2.default.Component);
+	}(_react.Component);
 
 	exports.default = App;
 

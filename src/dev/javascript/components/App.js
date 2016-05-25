@@ -1,9 +1,9 @@
 /**
  * Created by jahansj on 21/05/2016.
  */
-import React from 'react';
+import React, { Component } from 'react';
 
-export default class App extends React.Component {
+export default class App extends Component {
     constructor(){
         super();
 
