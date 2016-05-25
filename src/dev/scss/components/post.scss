@@ -1,0 +1,39 @@
+@import "../variables";
+
+.mdl-card__title {
+  background-image: url('/images/potpourri.png');
+  background-size: 100%;
+}
+
+.mdl-card__title-text a {
+  color: #ffffff !important;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.mdl-card {
+  margin: 12px;
+  min-height: 120px !important;
+
+  li {
+    display: inline-block;
+  }
+}
+
+.mdl-card__supporting-text {
+  min-height: 53px;
+}
+
+.mdl-card__actions {
+  background-color: $background-purple !important;
+  height: 35px !important;
+  padding: 0 !important;
+  
+  .material-icons {
+    color: rgba(255, 255, 255, 0.83) !important;
+  }
+}
+

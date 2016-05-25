@@ -20305,24 +20305,61 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "mdl-card " },
+	                { className: "mdl-card mdl-shadow--2dp through mdl-shadow--16dp" },
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "mdl-card__title " },
+	                    { className: "mdl-card__title" },
 	                    _react2.default.createElement(
 	                        "h4",
 	                        { className: "mdl-card__title-text" },
-	                        this.props.username
+	                        _react2.default.createElement(
+	                            "a",
+	                            { href: "#" },
+	                            " ",
+	                            this.props.username,
+	                            " "
+	                        )
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "mdl-card__supporting-text" },
+	                    this.props.textContent
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "mdl-card__actions" },
 	                    _react2.default.createElement(
-	                        "p",
-	                        null,
+	                        "button",
+	                        { className: "mdl-button" },
 	                        " ",
-	                        this.props.textContent,
+	                        _react2.default.createElement(
+	                            "i",
+	                            { className: "material-icons" },
+	                            "grade"
+	                        ),
+	                        " "
+	                    ),
+	                    _react2.default.createElement(
+	                        "button",
+	                        { className: "mdl-button" },
+	                        " ",
+	                        _react2.default.createElement(
+	                            "i",
+	                            { className: "material-icons" },
+	                            "thumb_up"
+	                        ),
+	                        " "
+	                    ),
+	                    _react2.default.createElement(
+	                        "button",
+	                        { className: "mdl-button" },
+	                        " ",
+	                        _react2.default.createElement(
+	                            "i",
+	                            { className: "material-icons" },
+	                            "comment"
+	                        ),
 	                        " "
 	                    )
 	                )

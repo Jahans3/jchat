@@ -11,14 +11,22 @@ export default class Post extends Component {
 
     render(){
         return (
-            <div className={"mdl-card "}>
+            <div className={"mdl-card mdl-shadow--2dp through mdl-shadow--16dp"}>
 
-                <div className={"mdl-card__title "}>
-                    <h4 className="mdl-card__title-text">{ this.props.username }</h4>
+                <div className={"mdl-card__title"}>
+                    <h4 className="mdl-card__title-text">
+                        <a href="#"> { this.props.username } </a>
+                    </h4>
                 </div>
 
                 <div className="mdl-card__supporting-text">
-                    <p> { this.props.textContent } </p>
+                    { this.props.textContent }
+                </div>
+
+                <div className="mdl-card__actions">
+                    <button className="mdl-button"> <i className="material-icons">grade</i> </button>
+                    <button className="mdl-button"> <i className="material-icons">thumb_up</i> </button>
+                    <button className="mdl-button"> <i className="material-icons">comment</i> </button>
                 </div>
 
             </div>

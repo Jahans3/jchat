@@ -1,2 +1,25 @@
-p {
-  background-color: red; }
+.mdl-card__title {
+  background-image: url("/images/potpourri.png");
+  background-size: 100%; }
+
+.mdl-card__title-text a {
+  color: #ffffff !important;
+  text-decoration: none; }
+  .mdl-card__title-text a:hover {
+    text-decoration: underline; }
+
+.mdl-card {
+  margin: 12px;
+  min-height: 120px !important; }
+  .mdl-card li {
+    display: inline-block; }
+
+.mdl-card__supporting-text {
+  min-height: 53px; }
+
+.mdl-card__actions {
+  background-color: #663399 !important;
+  height: 35px !important;
+  padding: 0 !important; }
+  .mdl-card__actions .material-icons {
+    color: rgba(255, 255, 255, 0.83) !important; }
