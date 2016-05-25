@@ -13,7 +13,7 @@ const users = require('./routes/users');
 const app = require('./routes/index').app;
 
 // view engine setup
-app.set('views', path.join(__dirname, '../dist/views'));
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'hjs');
 
 // uncomment after placing your favicon in /public

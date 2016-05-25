@@ -37,6 +37,7 @@ export default class App extends React.Component {
     updateList(message){
 
         this.messages.push(<p>{message}</p>);
+
         this.setState({output:this.messages})
     }
 
