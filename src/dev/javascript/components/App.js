@@ -2,6 +2,7 @@
  * Created by jahansj on 21/05/2016.
  */
 import React, { Component } from 'react';
+import Post from './Post';
 
 export default class App extends Component {
     constructor(){
@@ -36,13 +37,12 @@ export default class App extends Component {
 
     updateList(message){
 
-        this.messages.push(<p>{message}</p>);
+        this.messages.push(<Post username="@username" textContent={message} />);
 
         this.setState({output:this.messages})
     }
 
     render(){
-        console.log('render')
 
         return (
             <div>
