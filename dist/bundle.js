@@ -20211,6 +20211,8 @@
 	            this.el = document.getElementById('myButton');
 	            this.cont = document.getElementById('messageContainer');
 
+	            this.socket.on('connection', function (socket) {});
+
 	            this.socket.on('thing', function (socket) {
 	                console.log('A user connected: ' + socket.data);
 	            });
@@ -20228,6 +20230,7 @@
 	        value: function sendThing() {
 	            this.ele = document.getElementById('myInput').value;
 	            this.socket.emit('message', this.ele);
+	            //emit(`message:${this.children.nav.selectedChannel}`, this.ele);
 	        }
 	    }, {
 	        key: 'updateList',
@@ -20244,10 +20247,14 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement('input', { type: 'text', id: 'myInput' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'mdl-card__title-text' },
+	                    _react2.default.createElement('input', { type: 'text', className: 'mdl-textfield__input', id: 'myInput' })
+	                ),
 	                _react2.default.createElement(
 	                    'button',
-	                    { id: 'myButton' },
+	                    { id: 'myButton', className: 'mdl-button' },
 	                    'Send'
 	                ),
 	                _react2.default.createElement(

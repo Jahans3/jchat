@@ -17,6 +17,10 @@ export default class App extends Component {
         this.el = document.getElementById('myButton');
         this.cont = document.getElementById('messageContainer');
 
+        this.socket.on('connection', function(socket){
+
+        });
+
         this.socket.on('thing', function(socket){
             console.log('A user connected: ' + socket.data);
         });
@@ -33,6 +37,7 @@ export default class App extends Component {
     sendThing(){
         this.ele = document.getElementById('myInput').value;
         this.socket.emit('message', this.ele);
+        //emit(`message:${this.children.nav.selectedChannel}`, this.ele);
     }
 
     updateList(message){
@@ -46,8 +51,10 @@ export default class App extends Component {
 
         return (
             <div>
-                <input type="text" id="myInput"/>
-                <button id="myButton">Send</button>
+                <div className="mdl-card__title-text">
+                    <input type="text" className="mdl-textfield__input" id="myInput"/>
+                </div>
+                <button id="myButton" className="mdl-button">Send</button>
                 <div>{this.state.output}</div>
             </div>
         )
