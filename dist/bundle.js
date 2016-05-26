@@ -20249,6 +20249,82 @@
 	                null,
 	                _react2.default.createElement(
 	                    'div',
+	                    { 'class': 'mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs' },
+	                    _react2.default.createElement(
+	                        'header',
+	                        { 'class': 'mdl-layout__header' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { 'class': 'mdl-layout__header-row' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { 'class': 'mdl-layout-title' },
+	                                'Title'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { 'class': 'mdl-layout__tab-bar mdl-js-ripple-effect' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#fixed-tab-1', 'class': 'mdl-layout__tab is-active' },
+	                                'Tab 1'
+	                            ),
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#fixed-tab-2', 'class': 'mdl-layout__tab' },
+	                                'Tab 2'
+	                            ),
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#fixed-tab-3', 'class': 'mdl-layout__tab' },
+	                                'Tab 3'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { 'class': 'mdl-layout__drawer' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { 'class': 'mdl-layout-title' },
+	                            'Title'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'main',
+	                        { 'class': 'mdl-layout__content' },
+	                        _react2.default.createElement(
+	                            'section',
+	                            { 'class': 'mdl-layout__tab-panel is-active', id: 'fixed-tab-1' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { 'class': 'page-content' },
+	                                ' channel 1 '
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { 'class': 'mdl-layout__tab-panel', id: 'fixed-tab-2' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { 'class': 'page-content' },
+	                                ' channel 2 '
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { 'class': 'mdl-layout__tab-panel', id: 'fixed-tab-3' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { 'class': 'page-content' },
+	                                ' channel 3 '
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
 	                    { className: 'mdl-card__title-text' },
 	                    _react2.default.createElement('input', { type: 'text', className: 'mdl-textfield__input', id: 'myInput' })
 	                ),
@@ -20259,7 +20335,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    null,
+	                    { className: 'mdl-grid' },
 	                    this.state.output
 	                )
 	            );
@@ -20312,7 +20388,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "mdl-card mdl-shadow--2dp through mdl-shadow--16dp" },
+	                { className: "mdl-card mdl-shadow--2dp through mdl-shadow--16dp mdl-cell mdl-cell--3-col" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "mdl-card__title" },

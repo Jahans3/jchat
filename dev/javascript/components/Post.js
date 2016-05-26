@@ -11,7 +11,7 @@ export default class Post extends Component {
 
     render(){
         return (
-            <div className={"mdl-card mdl-shadow--2dp through mdl-shadow--16dp"}>
+            <div className={"mdl-card mdl-shadow--2dp through mdl-shadow--16dp mdl-cell mdl-cell--3-col"}>
 
                 <div className={"mdl-card__title"}>
                     <h4 className="mdl-card__title-text">
