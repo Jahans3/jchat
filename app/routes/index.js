@@ -7,14 +7,17 @@ const http = require('http');
 const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 
+
+
 io.on('connection', (socket) => {
 
     io.emit('thing', { data: 'thisisathing' });
 
-    socket.on('message', (data) => {
-        console.log(data);
+    socket.on('message', data => {
+        console.log(`distribute:channel-${data.id} ` + data.textContent);
 
-        io.emit('distribute', data);
+
+        io.emit(`distribute:channel-${data.id}`, { username: '@username', textContent: data.textContent });
     });
 });
 

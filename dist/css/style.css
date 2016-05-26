@@ -25,3 +25,11 @@
   padding: 0 !important; }
   .mdl-card__actions .material-icons {
     color: rgba(255, 255, 255, 0.83) !important; }
+
+.headernav__tab {
+  display: table-cell; }
+
+.mdl-layout__tab-bar {
+  height: auto;
+  display: table;
+  table-layout: fixed; }
