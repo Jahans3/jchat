@@ -11,12 +11,12 @@ var url = 'mongodb://localhost:27017/test';
 MongoClient.connect(url, function(err, db) {
     console.log("Connected correctly to server.");
 
-    insertDocument(db)
-    findRestaurants(db)
+    insertUser(db)
+    findUsers(db)
     //db.close();
 });
 
-let insertDocument = (db) => {
+let insertUser = (db) => {
     db.collection('users').insertOne(
         {
             username: 'aaron paul',
@@ -30,7 +30,7 @@ let insertDocument = (db) => {
         });
 };
 
-let findRestaurants = (db) => {
+let findUsers = (db) => {
     let cursor = db.collection('users').find( );
 
     cursor.each(function(err, doc) {
