@@ -20491,17 +20491,17 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            //emit('register-component' ...
-	            //
-
 	            this.socket.on('connection', function (socket) {
+
 	                console.log('tab-' + _this2.props.tabId + ' connected');
 	            });
 
 	            this.button = document.getElementById('tab-button-' + this.props.tabId);
 
 	            this.button.addEventListener('click', function (e) {
+
 	                _this2.socket.emit('message', {
+
 	                    id: _this2.props.tabId,
 	                    textContent: document.getElementById('tab-input-' + _this2.props.tabId).value
 	                });
@@ -20509,18 +20509,24 @@
 
 	            this.socket.on('distribute:channel-' + this.props.tabId, function (socket) {
 
-	                _this2.messages.push(_react2.default.createElement(_Post2.default, { username: socket.username, textContent: socket.textContent }));
+	                _this2.messages.splice(0, 0, _react2.default.createElement(_Post2.default, { username: socket.username, textContent: socket.textContent }));
+
+	                if (_this2.messages.length > 9) {
+	                    _this2.messages.pop();
+	                }
 
 	                _this2.setState({ messages: _this2.messages });
 	            });
 
 	            this.socket.on('thing', function (data) {
+
 	                console.log('tab-input-' + _this2.props.tabId + ' has connected');
 	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+
 	            return _react2.default.createElement(
 	                'section',
 	                { className: 'mdl-layout__tab-panel is-active', id: 'fixed-tab-' + this.props.tabId },

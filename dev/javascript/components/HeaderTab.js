@@ -19,19 +19,17 @@ export default class HeaderTab extends Component {
 
     componentDidMount(){
 
-        //emit('register-component' ...
-            //
-
         this.socket.on('connection', socket => {
+
             console.log(`tab-${this.props.tabId} connected`);
         });
-
-
 
         this.button = document.getElementById(`tab-button-${this.props.tabId}`);
 
         this.button.addEventListener('click', e => {
+
             this.socket.emit('message', {
+
                 id: this.props.tabId,
                 textContent: document.getElementById(`tab-input-${this.props.tabId}`).value
             });
@@ -39,17 +37,24 @@ export default class HeaderTab extends Component {
 
         this.socket.on(`distribute:channel-${this.props.tabId}`, socket => {
 
-            this.messages.push(<Post username={socket.username} textContent={socket.textContent} />);
+            this.messages.splice(0, 0, <Post username={socket.username} textContent={socket.textContent} />);
+
+            if (this.messages.length > 9) {
+
+                this.messages.pop();
+            }
 
             this.setState({ messages: this.messages });
         });
 
         this.socket.on('thing', (data) => {
+
             console.log(`tab-input-${this.props.tabId} has connected`);
         })
     }
 
     render(){
+
         return (
             <section className="mdl-layout__tab-panel is-active" id={`fixed-tab-${this.props.tabId}`}>
                 <div className="page-content">
