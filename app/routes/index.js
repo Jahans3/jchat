@@ -8,13 +8,12 @@ const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 
 
-
 io.on('connection', (socket) => {
 
     io.emit('thing', { data: 'thisisathing' });
 
     socket.on('message', data => {
-        console.log(`distribute:channel-${data.id} ` + data.textContent);
+        console.log(`distribute:channel-${data.id}: ` + data.textContent);
 
 
         io.emit(`distribute:channel-${data.id}`, { username: '@username', textContent: data.textContent });
@@ -25,6 +24,8 @@ io.on('connection', (socket) => {
 router.get('/', (req, res, next) => {
     res.render('index', { title: 'Express' });
 });
+
+router.get('/users')
 
 //router.post('/login', (req, res) => {
 //
