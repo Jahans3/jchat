@@ -4,6 +4,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import HeaderTab from './HeaderTab';
+import Drawer from './Drawer';
 
 export default class HeaderNav extends Component {
 
@@ -25,9 +26,9 @@ export default class HeaderNav extends Component {
                         <a href="#fixed-tab-3" className="headernav__tab mdl-layout__tab">#Channel-3</a>
                     </div>
                 </header>
-                <div className="mdl-layout__drawer">
-                    <span className="mdl-layout-title">Settings</span>
-                </div>
+
+                <Drawer />
+
                 <main className="mdl-layout__content">
                     <HeaderTab tabId="1" />
                     <HeaderTab tabId="2" />

@@ -20358,6 +20358,10 @@
 
 	var _HeaderTab2 = _interopRequireDefault(_HeaderTab);
 
+	var _Drawer = __webpack_require__(172);
+
+	var _Drawer2 = _interopRequireDefault(_Drawer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20415,15 +20419,7 @@
 	                        )
 	                    )
 	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'mdl-layout__drawer' },
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'mdl-layout-title' },
-	                        'Settings'
-	                    )
-	                ),
+	                _react2.default.createElement(_Drawer2.default, null),
 	                _react2.default.createElement(
 	                    'main',
 	                    { className: 'mdl-layout__content' },
@@ -20512,6 +20508,7 @@
 	                _this2.messages.splice(0, 0, _react2.default.createElement(_Post2.default, { username: socket.username, textContent: socket.textContent }));
 
 	                if (_this2.messages.length > 9) {
+
 	                    _this2.messages.pop();
 	                }
 
@@ -20557,6 +20554,105 @@
 	}(_react.Component);
 
 	exports.default = HeaderTab;
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by jahansj on 29/05/2016.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	var Drawer = function (_Component) {
+	    _inherits(Drawer, _Component);
+
+	    function Drawer() {
+	        _classCallCheck(this, Drawer);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Drawer).call(this));
+
+	        _this.state = {
+	            formType: 'login',
+	            action: '',
+	            message: 'Create an account'
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Drawer, [{
+	        key: 'switchFormType',
+	        value: function switchFormType() {
+	            if (this.state.formType === 'login') {
+	                this.setState({
+	                    formType: 'signup',
+	                    action: '/signup',
+	                    message: 'Sign in'
+	                });
+	            } else {
+	                this.setState({
+	                    formType: 'login',
+	                    action: '/',
+	                    message: 'Create an account'
+	                });
+	            }
+	            console.log(this.state);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'mdl-layout__drawer' },
+	                _react2.default.createElement(
+	                    'span',
+	                    { className: 'mdl-layout-title' },
+	                    'Account'
+	                ),
+	                _react2.default.createElement(
+	                    'form',
+	                    { className: 'form-signin', action: this.state.action, method: 'POST' },
+	                    _react2.default.createElement('input', { type: 'text', name: 'username', 'class': 'form-control', placeholder: 'Email', required: true, autofocus: true }),
+	                    _react2.default.createElement('input', { type: 'password', name: 'password', 'class': 'form-control', placeholder: 'Password', required: true }),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { type: 'submit' },
+	                        'Send'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: '#', onClick: this.switchFormType() },
+	                    ' ',
+	                    this.state.message,
+	                    ' '
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Drawer;
+	}(_react.Component);
+
+	exports.default = Drawer;
 
 /***/ }
 /******/ ]);
