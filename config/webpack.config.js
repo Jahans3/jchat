@@ -4,7 +4,7 @@
 
 module.exports = {
     context: __dirname + "/",
-    entry: "./dev/javascript/main.js",
+    entry: "../dev/javascript/main.js",
     output: {
         path: __dirname + "/dist",
         filename: "bundle.js"

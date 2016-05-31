@@ -47,7 +47,11 @@ router.get('/signup', (req, res) => {
 });
 
 /* process a signup form */
-//router.post('/signup', (req, res) => { })
+router.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/profile',
+    failureRedirect: '/',
+    failureFlash: true
+}));
 
 /* GET profile page */
 router.get('/profile', isLoggedIn, (req, res) => {

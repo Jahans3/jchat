@@ -12,7 +12,7 @@ const passport = require('./routes/index').passport;
 const routes = require('./routes/index').router;
 const users = require('./routes/users');
 
-const dbConfig = require('../schema/db.config.js');
+const dbConfig = require('../config/db.config.js');
 
 const app = require('./routes/index').app;
 
@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../dist')));
 
-//require('./config/passport')(passport);
+require('../config/passport.config')(passport);
 
 //require('./routes/index').router;
 app.use('/', routes);
