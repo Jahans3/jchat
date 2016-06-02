@@ -4,7 +4,9 @@
 "use strict";
 
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const User = require('../schema/users.model');
+const Auth = require('./auth.config.js');
 
 module.exports = function (passport) {
 
@@ -19,6 +21,48 @@ module.exports = function (passport) {
             done(err, user);
         });
     });
+
+    // facebook signup
+    passport.use( new FacebookStrategy({
+        clientID: Auth.facebook.clientID,
+        clientSecret: Auth.facebook.clientSecret,
+        callbackURL: Auth.facebook.callbackURL,
+        profileFields: [ 'email' , 'name' ]
+    },
+    (token, refreshToken, profile, done) => {
+
+        process.nextTick(() => {
+
+            User.findOne({ 'facebook.id': profile.id }, (err, user) => {
+
+                if (err) {
+                    return done(err);
+                }
+
+                // if user is found log them in
+                if (user) {
+                    return done(null, user);
+                }
+                else {
+                    let newUser = new User();
+
+                    newUser.facebook.id = profile.id;
+                    newUser.facebook.token = token;
+                    newUser.facebook.name = `${profile.name.givenName} ${profile.name.familyName}`;
+                    newUser.facebook.email = profile.emails[0].value;
+
+                    newUser.save((err) => {
+
+                        if (err) {
+                            throw err;
+                        }
+
+                        return done(null, newUser);
+                    });
+                }
+            });
+        });
+    }));
 
     // local signup
     passport.use('local-signup', new LocalStrategy({

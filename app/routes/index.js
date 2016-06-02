@@ -61,6 +61,15 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureFlash: true
 }));
 
+/* authenticate facebook user */
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
+
+/* handle the callback after facebook has authenticated the user */
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+        successRedirect : '/profile',
+        failureRedirect : '/'
+}));
+
 /* GET profile page */
 router.get('/profile', isLoggedIn, (req, res) => {
 

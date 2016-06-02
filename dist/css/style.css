@@ -39,3 +39,8 @@
   transform: translateY(33%); }
   .form__wrapper .mdl-card__title {
     color: #ffffff; }
+
+.profile__text {
+  text-overflow: ellipsis; }
+  .profile__text span {
+    text-overflow: ellipsis; }

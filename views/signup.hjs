@@ -32,8 +32,11 @@
                     </div>
 
                     <button class="mdl-button" type="submit">Login</button>
+
+                    <a href="/auth/facebook" class="mdl-button">Facebook</a>
                 </form>
             </div>
+
 
             {{#message}}
                 <ul class="messages mdl-list">
