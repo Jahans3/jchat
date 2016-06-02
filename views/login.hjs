@@ -8,24 +8,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        {{#message}}
-            <div class="messages">{{ message }}</div>
-        {{/message}}
 
-        <form action="/login" method="post">
-            <div class="mdl-textfield mdl-js-textfield">
-                <input type="text" class="mdl-textfield__input" id="login-user">
-                <label for="login-user" class="mdl-textfield__label">Username</label>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <input type="password" class="mdl-textfield__input" id="login-password">
-                <label for="login-password" class="mdl-textfield__label">Password</label>
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp form__wrapper">
+
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Login</h2>
             </div>
 
-            <button class="mdl-button" type="submit">Login</button>
-        </form>
+            <div class="mdl-card__actions">
+                <form action="/login" method="post">
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input type="text" class="mdl-textfield__input" id="login-user" name="email">
+                        <label for="signup-user" class="mdl-textfield__label">Email</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input type="password" class="mdl-textfield__input" id="login-password" name="password">
+                        <label for="signup-password" class="mdl-textfield__label">Password</label>
+                    </div>
 
-        <p>Need an account? <a href="/signup">Signup</a></p>
-        <p><a href="/">Home</a></p>
+                    <button class="mdl-button" type="submit">Login</button>
+                </form>
+            </div>
+
+            {{#message}}
+                <ul class="messages mdl-list">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content"> {{ message }} </span>
+                    </li>
+                </ul>
+            {{/message}}
+
+            <div class="mdl-card__supporting-text">
+                Already have an account? <a href="/login">Login</a>
+                <br>
+                <a href="/">Home</a>
+            </div>
+        </div>
     </body>
 </html>
