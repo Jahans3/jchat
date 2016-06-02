@@ -11,7 +11,11 @@ const flash = require('connect-flash');
 const session = require('express-session');
 
 
-app.use(session({ secret: 'supersecretsecret' }));
+app.use(session({
+    secret: 'supersecretsecret',
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -49,7 +53,7 @@ router.get('/signup', (req, res) => {
 /* process a signup form */
 router.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/profile',
-    failureRedirect: '/',
+    failureRedirect: '/signup',
     failureFlash: true
 }));
 
@@ -82,4 +86,4 @@ module.exports = {
     app: app,
     server: server,
     passport: passport
-  };
+};

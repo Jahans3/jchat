@@ -7,7 +7,7 @@
   padding: 11px 16px !important;
 }
 
-.mdl-card__title-text a {
+.post__title-text a {
   color: #ffffff !important;
   text-decoration: none;
 
@@ -16,7 +16,7 @@
   }
 }
 
-.mdl-card {
+.post__wrapper {
   margin: 12px;
   min-height: 120px !important;
 
@@ -25,11 +25,11 @@
   }
 }
 
-.mdl-card__supporting-text {
+.post__supporting-text {
   min-height: 53px;
 }
 
-.mdl-card__actions {
+.post__actions {
   background-color: $background-purple !important;
   height: 35px !important;
   padding: 0 !important;

@@ -25,7 +25,7 @@ module.exports = function (passport) {
 
         usernameField: 'email',
         passwordField: 'password',
-        _passReqToCallback: true
+        passReqToCallback: true
     },
     (req, email, password, done) => {
 
@@ -50,7 +50,7 @@ module.exports = function (passport) {
                     newUser.local.email = email;
                     newUser.local.password = newUser.generateHash(password);
 
-                    newUser.save((err) => {
+                    newUser.save(function(err) {
 
                         if (err) {
                             throw err;
