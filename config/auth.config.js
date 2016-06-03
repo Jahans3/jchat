@@ -11,9 +11,9 @@ module.exports = {
     },
 
     twitter: {
-        consumerKey: '',
-        consumerSecret: '',
-        callbackURL: ''
+        consumerKey: '	bi6GGzVfkExbEBlrygBzwZcPZ',
+        consumerSecret: 'A4AmDyJ9HT4e509mOWTVJfGfAxvn84SYuBtFtUpULZkAq5ejTv',
+        callbackURL: 'http://localhost3000/auth/twitter/callback'
     },
 
     google: {

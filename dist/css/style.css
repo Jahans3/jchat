@@ -1,3 +1,4 @@
+/* social */
 .mdl-card__title {
   background-color: #663399;
   background-size: 100%;
@@ -39,8 +40,20 @@
   transform: translateY(33%); }
   .form__wrapper .mdl-card__title {
     color: #ffffff; }
+  .form__wrapper .mdl-card__title-text {
+    margin: 0 auto; }
+
+.button__facebook {
+  background-color: #2C4388;
+  color: #ffffff; }
+  .button__facebook:hover {
+    color: #2C4388; }
+
+.button__twitter {
+  background-color: #2589B8;
+  color: #ffffff; }
+  .button__twitter:hover {
+    color: #2589B8; }
 
 .profile__text {
   text-overflow: ellipsis; }
-  .profile__text span {
-    text-overflow: ellipsis; }

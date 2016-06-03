@@ -5,4 +5,26 @@
   .mdl-card__title {
     color: #ffffff;
   }
+
+  .mdl-card__title-text {
+    margin: 0 auto;
+  }
+}
+
+.button__facebook {
+  background-color: $facebook-blue;
+  color: #ffffff;
+
+  &:hover {
+    color: $facebook-blue;
+  }
+}
+
+.button__twitter {
+  background-color: $twitter-blue;
+  color: #ffffff;
+
+  &:hover {
+    color: $twitter-blue;
+  }
 }

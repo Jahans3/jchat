@@ -67,7 +67,18 @@ app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] 
 /* handle the callback after facebook has authenticated the user */
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
         successRedirect : '/profile',
-        failureRedirect : '/'
+        failureRedirect : '/',
+        failureFlash: true
+}));
+
+/* authenticate twitter */
+app.get('/auth/twitter', passport.authenticate('twitter'));
+
+// handle the callback after twitter has authenticated the user
+app.get('/auth/twitter/callback', passport.authenticate('twitter', {
+        successRedirect : '/profile',
+        failureRedirect : '/',
+        failureFlash: true
 }));
 
 /* GET profile page */

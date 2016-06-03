@@ -5,6 +5,7 @@
 
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+const TwitterStrategy = require('passport-twitter').Strategy;
 const User = require('../schema/users.model');
 const Auth = require('./auth.config.js');
 
@@ -22,12 +23,58 @@ module.exports = function (passport) {
         });
     });
 
+    passport.use( new TwitterStrategy({
+
+        consumerKey: Auth.twitter.consumerKey,
+        consumerSecret: Auth.twitter.consumerSecret,
+        callbackURL: Auth.twitter.callbackURL
+
+    },
+    (token, tokenSecret, profile, done) => {
+
+        process.nextTick(() => {
+
+            User.findOne({ 'twitter.id': profile.id }, (err, user) => {
+
+                if (err) {
+                    return done(err);
+                }
+
+                // if user exists login
+                if (user) {
+                    return done(null, user);
+                }
+                else {
+
+                    let newUser = new User();
+
+                    newUser.twitter.id = profile.id;
+                    newUser.twitter.token = token;
+                    newUser.twitter.username = profile.username;
+                    newUser.twitter.displayName = profile.displayName;
+
+                    newUser.save((err) => {
+
+                        if (err) {
+                            throw err;
+                        }
+
+                        return done(null, newUser);
+                    });
+                }
+            });
+        });
+
+    }));
+
     // facebook signup
     passport.use( new FacebookStrategy({
+
         clientID: Auth.facebook.clientID,
         clientSecret: Auth.facebook.clientSecret,
         callbackURL: Auth.facebook.callbackURL,
         profileFields: [ 'email' , 'name' ]
+
     },
     (token, refreshToken, profile, done) => {
 
@@ -70,6 +117,7 @@ module.exports = function (passport) {
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
+
     },
     (req, email, password, done) => {
 
