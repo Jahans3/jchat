@@ -55,5 +55,11 @@
   .button__twitter:hover {
     color: #2589B8; }
 
+.button__google {
+  background-color: #CE2621;
+  color: #ffffff; }
+  .button__google:hover {
+    color: #CE2621; }
+
 .profile__text {
   text-overflow: ellipsis; }

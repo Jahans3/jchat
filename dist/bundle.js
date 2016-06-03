@@ -20271,13 +20271,13 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "mdl-card mdl-shadow--2dp through mdl-shadow--16dp mdl-cell mdl-cell--3-col" },
+	                { className: "mdl-card mdl-shadow--2dp through mdl-shadow--16dp mdl-cell mdl-cell--3-col post__wrapper" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "mdl-card__title" },
 	                    _react2.default.createElement(
 	                        "h4",
-	                        { className: "mdl-card__title-text" },
+	                        { className: "mdl-card__title-text post__title-text" },
 	                        _react2.default.createElement(
 	                            "a",
 	                            { href: "#" },
@@ -20289,12 +20289,12 @@
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "mdl-card__supporting-text" },
+	                    { className: "mdl-card__supporting-text post__supporting-text" },
 	                    this.props.textContent
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "mdl-card__actions" },
+	                    { className: "mdl-card__actions post__actions" },
 	                    _react2.default.createElement(
 	                        "button",
 	                        { className: "mdl-button" },
@@ -20512,6 +20512,7 @@
 	                _this2.messages.splice(0, 0, _react2.default.createElement(_Post2.default, { username: socket.username, textContent: socket.textContent }));
 
 	                if (_this2.messages.length > 9) {
+
 	                    _this2.messages.pop();
 	                }
 

@@ -6,6 +6,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../schema/users.model');
 const Auth = require('./auth.config.js');
 
@@ -22,6 +23,51 @@ module.exports = function (passport) {
             done(err, user);
         });
     });
+
+    passport.use( new GoogleStrategy({
+
+        clientID: Auth.google.clientID,
+        clientSecret: Auth.google.clientSecret,
+        callbackURL: Auth.google.callbackURL,
+        passReqToCallback: true
+
+    },
+    (token, refreshToken, profile, done) => {
+
+        process.nextTick(() => {
+
+            User.findOne({ 'google.id': profile.id }, (err, user) => {
+
+                if (err) {
+                    return done(err);
+                }
+
+                // if user already exists log them in
+                if (user) {
+                    return done(null, user);
+                }
+
+                if (!user) {
+
+                    let newUser = new User();
+
+                    newUser.google.id = profile.id;
+                    newUser.google.token = token;
+                    newUser.google.name = profile.name;
+                    newUser.google.email = profile.emails[0].value;
+
+                    newUser.save((err) => {
+
+                        if (err) {
+                            throw err;
+                        }
+
+                        return done(null, newUser);
+                    })
+                }
+            });
+        });
+    }));
 
     passport.use( new TwitterStrategy({
 

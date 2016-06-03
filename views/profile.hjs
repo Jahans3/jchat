@@ -21,19 +21,42 @@
     <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Welcome {{ user.local.email }}</h2>
     </div>
+
+    <br>
+
     <h4 class="mdl-card__title-text">Local Info</h4>
     <div class="mdl-card__supporting-text profile__text">
         <strong>ID</strong>: <span>{{ user._id }}</span>
         <br>
         <strong>Password</strong>: <span>{{ user.local.password }}</span>
     </div>
+
     <h4 class="mdl-card__title-text">Facebook Info</h4>
     <div class="mdl-card__supporting-text profile__text">
-        <strong>id</strong>: {{ user.facebook.id }}<br>
-        <strong>token</strong>: {{ user.facebook.token }}<br>
-        <strong>email</strong>: {{ user.facebook.email }}<br>
-        <strong>name</strong>: {{ user.facebook.name }}<br>
+        <strong>ID</strong>: {{ user.facebook.id }}<br>
+        <strong>Token</strong>: {{ user.facebook.token }}<br>
+        <strong>Email</strong>: {{ user.facebook.email }}<br>
+        <strong>Name</strong>: {{ user.facebook.name }}<br>
     </div>
+
+    <br>
+
+    <h4 class="mdl-card__title-text">Twitter Info</h4>
+    <div class="mdl-card__support-text profile__text">
+        <strong>ID</strong>: {{ user.twitter.id }}<br>
+        <strong>Token</strong>: {{ user.twitter.token }}<br>
+        <strong>Email</strong>: {{ user.twitter.email }}<br>
+        <strong>Name</strong>: {{ user.twitter.name }}<br>
+    </div>
+
+    <h4 class="mdl-card__title-text">Google Info</h4>
+    <div class="mdl-card__support-text profile__text">
+        <strong>ID</strong>: {{ user.google.id }}<br>
+        <strong>Token</strong>: {{ user.google.token }}<br>
+        <strong>Email</strong>: {{ user.google.email }}<br>
+        <strong>Name</strong>: {{ user.google.name }}<br>
+    </div>
+
     <div class="mdl-card__actions mdl-card--border">
         <a href="/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             Home

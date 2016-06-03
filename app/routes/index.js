@@ -62,7 +62,7 @@ router.post('/signup', passport.authenticate('local-signup', {
 }));
 
 /* authenticate facebook user */
-app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
 /* handle the callback after facebook has authenticated the user */
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
@@ -74,11 +74,21 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 /* authenticate twitter */
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
-// handle the callback after twitter has authenticated the user
+/* handle the callback after twitter has authenticated the user */
 app.get('/auth/twitter/callback', passport.authenticate('twitter', {
         successRedirect : '/profile',
         failureRedirect : '/',
         failureFlash: true
+}));
+
+/* authenticate google */
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+/* handle the callback after google has authenticated the user */
+app.get('auth/google/callback', passport.authenticate('google', {
+    successRedirect: '/profile',
+    failureRedirect: '/',
+    failureFlash: true
 }));
 
 /* GET profile page */
