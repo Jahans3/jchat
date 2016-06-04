@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="demo-card-wide mdl-card mdl-shadow--2dp form__wrapper--centre">
+
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Connect a Local Account</h2>
+    </div>
+
+    <div class="mdl-card__actions">
+        <form action="/connect/local" method="post">
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input type="text" class="mdl-textfield__input" id="login-user" name="email">
+                <label for="signup-user" class="mdl-textfield__label">Email</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input type="password" class="mdl-textfield__input" id="login-password" name="password">
+                <label for="signup-password" class="mdl-textfield__label">Password</label>
+            </div>
+
+            <button class="mdl-button local-button" type="submit">Login</button>
+
+        </form>
+    </div>
+
+    {{#message}}
+        <ul class="messages mdl-list">
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content"> {{ message }} </span>
+            </li>
+        </ul>
+    {{/message}}
+
+    <div class="mdl-card__supporting-text">
+        <a href="/">Home</a>
+    </div>
+</div>
+</body>
+</html>

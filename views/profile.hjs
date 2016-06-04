@@ -31,31 +31,58 @@
         <strong>Password</strong>: <span>{{ user.local.password }}</span>
     </div>
 
-    <h4 class="mdl-card__title-text">Facebook Info</h4>
-    <div class="mdl-card__supporting-text profile__text">
-        <strong>ID</strong>: {{ user.facebook.id }}<br>
-        <strong>Token</strong>: {{ user.facebook.token }}<br>
-        <strong>Email</strong>: {{ user.facebook.email }}<br>
-        <strong>Name</strong>: {{ user.facebook.name }}<br>
-    </div>
+    {{#user.facebook.token}}
+        <h4 class="mdl-card__title-text">Facebook Info</h4>
+        <div class="mdl-card__supporting-text profile__text">
+            <strong>ID</strong>: {{ user.facebook.id }}<br>
+            <strong>Token</strong>: {{ user.facebook.token }}<br>
+            <strong>Email</strong>: {{ user.facebook.email }}<br>
+            <strong>Name</strong>: {{ user.facebook.name }}<br>
+
+            <a href="/unlink/facebook" class="mdl-button button__facebook">Unlink</a>
+        </div>
+    {{/user.facebook.token}}
+    {{^user.facebook.token}}
+        <div class="mdl-card__supporting-text profile__text">
+            <a href="/connect/facebook" class="mdl-button button__facebook">Connect via Facebook</a>
+        </div>
+    {{/user.facebook.token}}
 
     <br>
 
-    <h4 class="mdl-card__title-text">Twitter Info</h4>
-    <div class="mdl-card__supporting-text profile__text">
-        <strong>ID</strong>: {{ user.twitter.id }}<br>
-        <strong>Token</strong>: {{ user.twitter.token }}<br>
-        <strong>Email</strong>: {{ user.twitter.email }}<br>
-        <strong>Name</strong>: {{ user.twitter.name }}<br>
-    </div>
+    {{#user.twitter.token}}
+        <h4 class="mdl-card__title-text">Twitter Info</h4>
+        <div class="mdl-card__supporting-text profile__text">
+            <strong>ID</strong>: {{ user.twitter.id }}<br>
+            <strong>Token</strong>: {{ user.twitter.token }}<br>
+            <strong>Email</strong>: {{ user.twitter.email }}<br>
+            <strong>Name</strong>: {{ user.twitter.name }}<br>
 
-    <h4 class="mdl-card__title-text">Google Info</h4>
-    <div class="mdl-card__supporting-text profile__text">
-        <strong>ID</strong>: {{ user.google.id }}<br>
-        <strong>Token</strong>: {{ user.google.token }}<br>
-        <strong>Email</strong>: {{ user.google.email }}<br>
-        <strong>Name</strong>: {{ user.google.name.givenName user.google.name.familyName }}<br>
-    </div>
+            <a href="/unlink/twitter" class="mdl-button button__twitter">Unlink</a>
+        </div>
+    {{/user.twitter.token}}
+    {{^user.twitter.token}}
+        <div class="mdl-card__supporting-text profile__text">
+            <a href="/connect/twitter" class="mdl-button button__twitter">Connect via Twitter</a>
+        </div>
+    {{/user.twitter.token}}
+
+    {{#user.google.token}}
+        <h4 class="mdl-card__title-text">Google Info</h4>
+        <div class="mdl-card__supporting-text profile__text">
+            <strong>ID</strong>: {{ user.google.id }}<br>
+            <strong>Token</strong>: {{ user.google.token }}<br>
+            <strong>Email</strong>: {{ user.google.email }}<br>
+            <strong>Name</strong>: {{ user.google.name.givenName user.google.name.familyName }}<br>
+
+            <a href="/unlink/google" class="mdl-button button__google">Unlink</a>
+        </div>
+    {{/user.google.token}}
+    {{^user.google.token}}
+        <div class="mdl-card__supporting-text profile__text">
+            <a href="/connect/google" class="mdl-button button__google">Connect via Google</a>
+        </div>
+    {{/user.google.token}}
 
     <div class="mdl-card__actions mdl-card--border">
         <a href="/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -65,7 +92,6 @@
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="bundle.js"></script>
 <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
 </body>

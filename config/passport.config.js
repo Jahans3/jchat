@@ -127,38 +127,82 @@ module.exports = function (passport) {
         profileFields: [ 'email' , 'name' ]
 
     },
-    (token, refreshToken, profile, done) => {
+    (req, token, refreshToken, profile, done) => {
 
         process.nextTick(() => {
 
-            User.findOne({ 'facebook.id': profile.id }, (err, user) => {
+            // if no user is logged in
+            if (!req.user) {
 
-                if (err) {
-                    return done(err);
-                }
+                User.findOne({ 'facebook.id': profile.id }, (err, user) => {
 
-                // if user is found log them in
-                if (user) {
-                    return done(null, user);
-                }
-                else {
-                    let newUser = new User();
+                    if (err) {
+                        return done(err);
+                    }
 
-                    newUser.facebook.id = profile.id;
-                    newUser.facebook.token = token;
-                    newUser.facebook.name = `${profile.name.givenName} ${profile.name.familyName}`;
-                    newUser.facebook.email = profile.emails[0].value;
+                    // if user is found log them in
+                    if (user) {
 
-                    newUser.save((err) => {
+                        // if a user is in our database but have unlinked their account
+                        if (!user.facebook.token) {
 
-                        if (err) {
-                            throw err;
+                            console.log('re-register fb')
+
+                            user.facebook.token = token;
+                            user.facebook.name  = `${profile.name.givenName} ${profile.name.familyName}`;
+                            user.facebook.email = profile.emails[0].value;
+
+                            user.save((err) => {
+
+                                if (err) {
+                                    throw err;
+                                }
+
+                                return done(null, user);
+                            });
+                        } else {
+                            return done(null, user);
                         }
+                    }
+                    else {
+                        let newUser = new User();
 
-                        return done(null, newUser);
-                    });
-                }
-            });
+                        newUser.facebook.id = profile.id;
+                        newUser.facebook.token = token;
+                        newUser.facebook.name = `${profile.name} ${profile.name.familyName}`;
+                        newUser.facebook.email = profile.emails[0].value;
+
+                        newUser.save((err) => {
+
+                            if (err) {
+                                throw err;
+                            }
+
+                            return done(null, newUser);
+                        });
+                    }
+                });
+            }
+            else {
+
+                let newUser = new User();
+
+                newUser.facebook.id = profile.id;
+                newUser.facebook.token = token;
+                newUser.facebook.name = `${profile.name} ${profile.name.familyName}`;
+                newUser.facebook.email = profile.emails[0].value;
+
+                newUser.save((err) => {
+
+                    if (err) {
+                        throw err;
+                    }
+
+                    return done(null, newUser);
+                });
+            }
+
+
         });
     }));
 
