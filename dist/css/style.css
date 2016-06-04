@@ -35,13 +35,25 @@
   display: table;
   table-layout: fixed; }
 
-.form__wrapper {
+[class*="form__wrapper"] {
   margin: 0 auto;
-  transform: translateY(33%); }
-  .form__wrapper .mdl-card__title {
+  width: 326px; }
+  [class*="form__wrapper"] form {
+    padding-right: 3%; }
+  [class*="form__wrapper"] .mdl-card__title {
     color: #ffffff; }
-  .form__wrapper .mdl-card__title-text {
+  [class*="form__wrapper"] .mdl-card__title-text {
     margin: 0 auto; }
+
+.form__wrapper--centre {
+  transform: translateY(33%); }
+
+.local-button {
+  border: 1px solid #000;
+  margin-right: 69%; }
+
+.social-buttons__wrapper {
+  margin: 0 auto; }
 
 .button__facebook {
   background-color: #2C4388;

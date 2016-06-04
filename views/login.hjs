@@ -9,7 +9,7 @@
     </head>
     <body>
 
-        <div class="demo-card-wide mdl-card mdl-shadow--2dp form__wrapper">
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp form__wrapper--centre">
 
             <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Login</h2>
@@ -17,22 +17,27 @@
 
             <div class="mdl-card__actions">
                 <form action="/login" method="post">
+
                     <div class="mdl-textfield mdl-js-textfield">
                         <input type="text" class="mdl-textfield__input" id="login-user" name="email">
                         <label for="signup-user" class="mdl-textfield__label">Email</label>
                     </div>
+
                     <div class="mdl-textfield mdl-js-textfield">
                         <input type="password" class="mdl-textfield__input" id="login-password" name="password">
                         <label for="signup-password" class="mdl-textfield__label">Password</label>
                     </div>
 
-                    <button class="mdl-button" type="submit">Login</button>
+                    <button class="mdl-button local-button" type="submit">Login</button>
+
                 </form>
+
+                <br>
 
                 <div class="social-buttons__wrapper">
                     <a href="/auth/facebook" class="mdl-button button__facebook">Facebook</a>
                     <a href="/auth/twitter" class="mdl-button button__twitter">Twitter</a>
-                    <a href="/auth/google" class="mdl-button button_google">Google+</a>
+                    <a href="/auth/google" class="mdl-button button__google">Google</a>
                 </div>
 
 

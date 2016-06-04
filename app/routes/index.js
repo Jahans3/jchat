@@ -85,7 +85,7 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', {
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 /* handle the callback after google has authenticated the user */
-app.get('auth/google/callback', passport.authenticate('google', {
+app.get('/auth/google/callback', passport.authenticate('google', {
     successRedirect: '/profile',
     failureRedirect: '/',
     failureFlash: true

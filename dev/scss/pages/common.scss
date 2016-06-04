@@ -1,6 +1,10 @@
-.form__wrapper {
+[class*="form__wrapper"] {
   margin: 0 auto;
-  transform: translateY(33%);
+  width: 326px;
+
+  form {
+    padding-right: 3%;
+  }
 
   .mdl-card__title {
     color: #ffffff;
@@ -9,6 +13,19 @@
   .mdl-card__title-text {
     margin: 0 auto;
   }
+}
+
+.form__wrapper--centre {
+  transform: translateY(33%);
+}
+
+.local-button {
+  border: 1px solid #000;
+  margin-right: 69%;
+}
+
+.social-buttons__wrapper {
+  margin: 0 auto;
 }
 
 .button__facebook {

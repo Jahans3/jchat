@@ -42,7 +42,7 @@
     <br>
 
     <h4 class="mdl-card__title-text">Twitter Info</h4>
-    <div class="mdl-card__support-text profile__text">
+    <div class="mdl-card__supporting-text profile__text">
         <strong>ID</strong>: {{ user.twitter.id }}<br>
         <strong>Token</strong>: {{ user.twitter.token }}<br>
         <strong>Email</strong>: {{ user.twitter.email }}<br>
@@ -50,11 +50,11 @@
     </div>
 
     <h4 class="mdl-card__title-text">Google Info</h4>
-    <div class="mdl-card__support-text profile__text">
+    <div class="mdl-card__supporting-text profile__text">
         <strong>ID</strong>: {{ user.google.id }}<br>
         <strong>Token</strong>: {{ user.google.token }}<br>
         <strong>Email</strong>: {{ user.google.email }}<br>
-        <strong>Name</strong>: {{ user.google.name }}<br>
+        <strong>Name</strong>: {{ user.google.name.givenName user.google.name.familyName }}<br>
     </div>
 
     <div class="mdl-card__actions mdl-card--border">

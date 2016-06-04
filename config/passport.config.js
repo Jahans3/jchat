@@ -6,7 +6,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const User = require('../schema/users.model');
 const Auth = require('./auth.config.js');
 
@@ -32,7 +32,7 @@ module.exports = function (passport) {
         passReqToCallback: true
 
     },
-    (token, refreshToken, profile, done) => {
+    (request, accessToken, refreshToken, profile, done) => {
 
         process.nextTick(() => {
 
@@ -51,8 +51,13 @@ module.exports = function (passport) {
 
                     let newUser = new User();
 
+                    console.log(profile.id);
+                    console.log(accessToken);
+                    console.log(profile.name);
+                    console.log(profile.emails[0].value);
+
                     newUser.google.id = profile.id;
-                    newUser.google.token = token;
+                    newUser.google.token = accessToken;
                     newUser.google.name = profile.name;
                     newUser.google.email = profile.emails[0].value;
 
