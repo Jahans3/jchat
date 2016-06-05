@@ -32,7 +32,8 @@ export default class HeaderTab extends Component {
             this.socket.emit('message', {
 
                 id: this.props.tabId,
-                textContent: document.getElementById(`tab-input-${this.props.tabId}`).value
+                textContent: document.getElementById(`tab-input-${this.props.tabId}`).value,
+                username: this.props.username
             });
 
             e.preventDefault();

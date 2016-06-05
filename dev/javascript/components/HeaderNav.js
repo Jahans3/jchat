@@ -61,9 +61,9 @@ export default class HeaderNav extends Component {
                 </header>
                 <Drawer />
                 <main className="mdl-layout__content">
-                    <HeaderTab tabId="1" customClass="is-active" />
-                    <HeaderTab tabId="2" />
-                    <HeaderTab tabId="3" />
+                    <HeaderTab tabId="1" username={this.state.user} customClass="is-active" />
+                    <HeaderTab tabId="2" username={this.state.user} />
+                    <HeaderTab tabId="3" username={this.state.user} />
                 </main>
             </div>
         )

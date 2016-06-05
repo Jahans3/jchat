@@ -20457,9 +20457,9 @@
 	                _react2.default.createElement(
 	                    'main',
 	                    { className: 'mdl-layout__content' },
-	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '1', customClass: 'is-active' }),
-	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '2' }),
-	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '3' })
+	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '1', username: this.state.user, customClass: 'is-active' }),
+	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '2', username: this.state.user }),
+	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '3', username: this.state.user })
 	                )
 	            );
 	        }
@@ -20534,7 +20534,8 @@
 	                _this2.socket.emit('message', {
 
 	                    id: _this2.props.tabId,
-	                    textContent: document.getElementById('tab-input-' + _this2.props.tabId).value
+	                    textContent: document.getElementById('tab-input-' + _this2.props.tabId).value,
+	                    username: _this2.props.username
 	                });
 
 	                e.preventDefault();
@@ -20665,6 +20666,16 @@
 	                        "a",
 	                        { href: "/profile", className: "mdl-navigation__link" },
 	                        "View Profile"
+	                    )
+	                ),
+	                _react2.default.createElement("div", { className: "mdl-layout-spacer" }),
+	                _react2.default.createElement(
+	                    "nav",
+	                    { className: "mdl-navigation" },
+	                    _react2.default.createElement(
+	                        "a",
+	                        { href: "/logout", className: "mdl-navigation__link" },
+	                        "Logout"
 	                    )
 	                )
 	            );

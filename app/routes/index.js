@@ -27,7 +27,7 @@ io.on('connection', /* TODO isLoggedIn */ (socket) => {
         console.log(`distribute:channel-${data.id}: ${data.textContent}`);
 
 
-        io.emit(`distribute:channel-${data.id}`, { username: '@username', textContent: data.textContent });
+        io.emit(`distribute:channel-${data.id}`, { username: data.username, textContent: data.textContent });
     });
 });
 
@@ -63,11 +63,17 @@ router.post('/signup', passport.authenticate('local-signup', {
 router.get('/username_request', isLoggedInNoRedirect, (req, res) => {
 
     this.response = req.user.local.email;
-
     this.accounts = [req.user.facebook.name, req.user.google.email, req.user.twitter.name];
 
-    while (typeof this.response == 'undefined') {
+    let i = 0;
+    while (this.response === undefined) {
         this.response = this.accounts[i];
+        i++;
+
+        if (i > 2) {
+            this.response = 'jChat';
+            break;
+        }
     }
 
     res.send(this.response);
