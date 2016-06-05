@@ -25,14 +25,17 @@ export default class HeaderTab extends Component {
         });
 
         this.button = document.getElementById(`tab-button-${this.props.tabId}`);
+        this.form = document.getElementById(`channel-form-${this.props.tabId}`);
 
-        this.button.addEventListener('click', e => {
+        this.form.addEventListener('submit', e => {
 
             this.socket.emit('message', {
 
                 id: this.props.tabId,
                 textContent: document.getElementById(`tab-input-${this.props.tabId}`).value
             });
+
+            e.preventDefault();
         });
 
         this.socket.on(`distribute:channel-${this.props.tabId}`, socket => {
@@ -53,17 +56,23 @@ export default class HeaderTab extends Component {
         })
     }
 
+    prevDef(event){
+        event.preventDefault();
+    }
+
     render(){
 
         return (
-            <section className="mdl-layout__tab-panel is-active" id={`fixed-tab-${this.props.tabId}`}>
+            <section className={`mdl-layout__tab-panel ${this.props.customClass}`} id={`fixed-tab-${this.props.tabId}`}>
                 <div className="page-content">
 
                     <div className="mdl-card__title-text">
-                        <input type="text" className="mdl-textfield__input" id={`tab-input-${this.props.tabId}`}/>
+                        <form id={`channel-form-${this.props.tabId}`} action="none">
+                            <input type="text" className="mdl-textfield__input" id={`tab-input-${this.props.tabId}`}/>
+                            <button id={`tab-button-${this.props.tabId}`} className="mdl-button">Send</button>
+                        </form>
                     </div>
 
-                    <button id={`tab-button-${this.props.tabId}`} className="mdl-button">Send</button>
 
                     <div className={"mdl-grid " + `mdl-grid-${this.props.tabId}`}>
                         {this.state.messages}

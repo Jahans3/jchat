@@ -13,23 +13,30 @@
 </head>
 <body>
 
-<div class="user-bar">
-    <a href="/">Home</a>
-</div>
-
 <div class="mdl-card mdl-shadow--2dp form__wrapper">
+
     <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Welcome {{ user.local.email }}</h2>
     </div>
 
     <br>
 
-    <h4 class="mdl-card__title-text">Local Info</h4>
-    <div class="mdl-card__supporting-text profile__text">
-        <strong>ID</strong>: <span>{{ user._id }}</span>
-        <br>
-        <strong>Password</strong>: <span>{{ user.local.password }}</span>
-    </div>
+    {{#user.local.password}}
+        <h4 class="mdl-card__title-text">Local Info</h4>
+        <div class="mdl-card__supporting-text profile__text">
+            <strong>ID</strong>: <span>{{ user._id }}</span>
+            <br>
+            <strong>Password</strong>: <span>{{ user.local.password }}</span>
+
+            <a href="/unlink/local" class="mdl-button local-button">Unlink</a>
+        </div>
+    {{/user.local.password}}
+    {{^user.local.password}}
+        <div class="mdl-card__supporting-text profile__text">
+            <a href="/connect/local-connect" class="mdl-button local-button">Connect locally</a>
+        </div>
+    {{/user.local.password}}
+
 
     {{#user.facebook.token}}
         <h4 class="mdl-card__title-text">Facebook Info</h4>

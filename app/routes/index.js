@@ -10,7 +10,6 @@ const io = require('socket.io').listen(server);
 const flash = require('connect-flash');
 const session = require('express-session');
 
-
 app.use(session({
     secret: 'supersecretsecret',
     resave: false,
@@ -25,7 +24,7 @@ io.on('connection', /* TODO isLoggedIn */ (socket) => {
     io.emit('thing', { data: 'thisisathing' });
 
     socket.on('message', data => {
-        console.log(`distribute:channel-${data.id}: ` + data.textContent);
+        console.log(`distribute:channel-${data.id}: ${data.textContent}`);
 
 
         io.emit(`distribute:channel-${data.id}`, { username: '@username', textContent: data.textContent });
@@ -60,6 +59,31 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureRedirect: '/signup',
     failureFlash: true
 }));
+
+router.get('/username_request', isLoggedInNoRedirect, (req, res) => {
+
+    this.response = req.user;
+
+    res.send(this.response);
+});
+
+function isLoggedInNoRedirect (req, res, next) {
+
+    if (req.isAuthenticated()) {
+        console.log('user is authenticated');
+        return next()
+    } else {
+        console.log('user is NOT authenticated');
+
+        res.send('jChat');
+    }
+};
+
+
+/*
+ * Auth requests
+ */
+
 
 /* authenticate facebook user */
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
@@ -106,17 +130,17 @@ router.get('/logout', (req, res) => {
 
 
 
-/* connect a local login to account */
-app.get('/connect/local', (req, res) => {
-    res.render('connect-local', { message: req.flash('loginMessage') });
-});
-
 /* handle local login being connected to account */
-app.post('/connect/local', passport.authenticate('local-signup', {
+app.get('/connect/local', passport.authenticate('local-signup', {
     successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
+
+/* connect a local login to account */
+app.get('/connect/local-connect', (req, res) => {
+    res.render('connect-local', { message: req.flash('loginMessage') });
+});
 
 /* connect a facebook login to account */
 app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
@@ -146,7 +170,7 @@ app.get('/connect/google/callback', passport.authorize('google', {
 }));
 
 /* unlink a local account */
-app.get('/unlink/local', function(req, res) {
+app.get('/unlink/local', (req, res) => {
     var user = req.user;
 
     user.local.email    = undefined;

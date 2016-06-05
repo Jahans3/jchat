@@ -2,8 +2,13 @@
   display: table-cell;
 }
 
-.mdl-layout__tab-bar {
-  height: auto;
-  display: table;
-  table-layout: fixed;
+.headernav__header {
+  background-color: $background-purple;
+
+  .mdl-layout__tab-bar {
+    height: auto;
+    display: table;
+    table-layout: fixed;
+    background-color: $background-purple;
+  }
 }

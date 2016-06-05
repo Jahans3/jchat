@@ -7,6 +7,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const ObjectID = require('mongodb').ObjectID;
 const User = require('../schema/users.model');
 const Auth = require('./auth.config.js');
 
@@ -32,89 +33,172 @@ module.exports = function (passport) {
         passReqToCallback: true
 
     },
-    (request, accessToken, refreshToken, profile, done) => {
+    (req, accessToken, refreshToken, profile, done) => {
 
-        process.nextTick(() => {
+        // if no user is logged in
+        if (!req.user) {
 
-            User.findOne({ 'google.id': profile.id }, (err, user) => {
+            process.nextTick(() => {
 
-                if (err) {
-                    return done(err);
-                }
+                User.findOne({ 'google.id': profile.id }, (err, user) => {
 
-                // if user already exists log them in
-                if (user) {
-                    return done(null, user);
-                }
+                    if (err) {
+                        return done(err);
+                    }
 
-                if (!user) {
+                    // if user already exists log them in
+                    if (user) {
 
-                    let newUser = new User();
+                        if (!user.google.token) {
 
-                    console.log(profile.id);
-                    console.log(accessToken);
-                    console.log(profile.name);
-                    console.log(profile.emails[0].value);
+                            user.google.id = profile.id;
+                            user.google.token = accessToken;
+                            user.google.name = profile.name;
+                            user.google.email = profile.emails[0].value;
 
-                    newUser.google.id = profile.id;
-                    newUser.google.token = accessToken;
-                    newUser.google.name = profile.name;
-                    newUser.google.email = profile.emails[0].value;
+                            user.save((err) => {
 
-                    newUser.save((err) => {
+                                if (err) {
+                                    throw err;
+                                }
+                                else {
+                                    return done(null, user);
+                                }
+                            })
 
-                        if (err) {
-                            throw err;
                         }
 
-                        return done(null, newUser);
-                    })
-                }
+                        return done(null, user);
+                    }
+
+                    if (!user) {
+
+                        let newUser = new User();
+
+                        newUser.google.id = profile.id;
+                        newUser.google.token = accessToken;
+                        newUser.google.name = profile.name;
+                        newUser.google.email = profile.emails[0].value;
+
+                        newUser.save((err) => {
+
+                            if (err) {
+                                throw err;
+                            }
+
+                            return done(null, newUser);
+                        })
+                    }
+                });
             });
-        });
+        }
+        else {
+            let user = req.user;
+
+            user.google.id = profile.id;
+            user.google.token = accessToken;
+            user.google.name = profile.name;
+            user.google.email = profile.emails[0].value;
+
+            user.save((err) => {
+
+                if (err) {
+                    throw err;
+                }
+                else {
+                    return done(null, user);
+                }
+            })
+        }
+
     }));
 
     passport.use( new TwitterStrategy({
 
         consumerKey: Auth.twitter.consumerKey,
         consumerSecret: Auth.twitter.consumerSecret,
-        callbackURL: Auth.twitter.callbackURL
+        callbackURL: Auth.twitter.callbackURL,
+        passReqToCallback: true
 
     },
-    (token, tokenSecret, profile, done) => {
+    (req, token, tokenSecret, profile, done) => {
 
-        process.nextTick(() => {
+        // if no user is logged in
+        if (!req.user) {
+            process.nextTick(() => {
 
-            User.findOne({ 'twitter.id': profile.id }, (err, user) => {
+                User.findOne({ 'twitter.id': profile.id }, (err, user) => {
+
+                    if (err) {
+                        return done(err);
+                    }
+
+                    // if user exists login
+                    if (user) {
+
+                        // if user is in our database but has unlinked their account
+                        if (!user.twitter.token) {
+
+                            user.twitter.id = profile.id;
+                            user.twitter.token = token;
+                            user.twitter.username = profile.username;
+                            user.twitter.displayName = profile.displayName;
+
+                            user.save((err) => {
+
+                                if (err) {
+                                    throw err;
+                                }
+                                else {
+                                    return done(null, user);
+                                }
+                            })
+
+                        }
+                        else {
+                            return done(null, user);
+                        }
+                    }
+                    else {
+
+                        let newUser = new User();
+
+                        newUser.twitter.id = profile.id;
+                        newUser.twitter.token = token;
+                        newUser.twitter.username = profile.username;
+                        newUser.twitter.displayName = profile.displayName;
+
+                        newUser.save((err) => {
+
+                            if (err) {
+                                throw err;
+                            }
+
+                            return done(null, newUser);
+                        });
+                    }
+                });
+            });
+        }
+        else {
+            let newUser = req.user;
+
+            newUser.twitter.id = profile.id;
+            newUser.twitter.token = token;
+            newUser.twitter.username = profile.username;
+            newUser.twitter.displayName = profile.displayName;
+
+            newUser.save((err) => {
 
                 if (err) {
-                    return done(err);
+                    throw err;
                 }
 
-                // if user exists login
-                if (user) {
-                    return done(null, user);
-                }
-                else {
-
-                    let newUser = new User();
-
-                    newUser.twitter.id = profile.id;
-                    newUser.twitter.token = token;
-                    newUser.twitter.username = profile.username;
-                    newUser.twitter.displayName = profile.displayName;
-
-                    newUser.save((err) => {
-
-                        if (err) {
-                            throw err;
-                        }
-
-                        return done(null, newUser);
-                    });
-                }
+                return done(null, newUser);
             });
-        });
+        }
+
+
 
     }));
 
@@ -124,10 +208,10 @@ module.exports = function (passport) {
         clientID: Auth.facebook.clientID,
         clientSecret: Auth.facebook.clientSecret,
         callbackURL: Auth.facebook.callbackURL,
-        profileFields: [ 'email' , 'name' ]
-
+        profileFields: [ 'email' , 'name' ],
+        passReqToCallback: true
     },
-    (req, token, refreshToken, profile, done) => {
+    (req, accessToken, refreshToken, profile, done) => {
 
         process.nextTick(() => {
 
@@ -146,9 +230,7 @@ module.exports = function (passport) {
                         // if a user is in our database but have unlinked their account
                         if (!user.facebook.token) {
 
-                            console.log('re-register fb')
-
-                            user.facebook.token = token;
+                            user.facebook.token = accessToken;
                             user.facebook.name  = `${profile.name.givenName} ${profile.name.familyName}`;
                             user.facebook.email = profile.emails[0].value;
 
@@ -157,18 +239,21 @@ module.exports = function (passport) {
                                 if (err) {
                                     throw err;
                                 }
-
-                                return done(null, user);
+                                else {
+                                    return done(null, user);
+                                }
                             });
-                        } else {
+                        }
+                        else {
                             return done(null, user);
                         }
                     }
                     else {
+
                         let newUser = new User();
 
                         newUser.facebook.id = profile.id;
-                        newUser.facebook.token = token;
+                        newUser.facebook.token = accessToken;
                         newUser.facebook.name = `${profile.name} ${profile.name.familyName}`;
                         newUser.facebook.email = profile.emails[0].value;
 
@@ -177,18 +262,19 @@ module.exports = function (passport) {
                             if (err) {
                                 throw err;
                             }
-
-                            return done(null, newUser);
+                            else {
+                                return done(null, newUser);
+                            }
                         });
                     }
                 });
             }
             else {
 
-                let newUser = new User();
+                let newUser = req.user;
 
                 newUser.facebook.id = profile.id;
-                newUser.facebook.token = token;
+                newUser.facebook.token = accessToken;
                 newUser.facebook.name = `${profile.name} ${profile.name.familyName}`;
                 newUser.facebook.email = profile.emails[0].value;
 
@@ -216,38 +302,80 @@ module.exports = function (passport) {
     },
     (req, email, password, done) => {
 
-        // async process
-        process.nextTick(() => {
+        // if no user is logged in
+        if (!req.user) {
 
-            User.findOne({ 'local.email': email }, (err, user) => {
+            // async process
+            process.nextTick(() => {
 
-                if (err) {
-                    return done(err);
-                }
+                User.findOne({ 'local.email': email }, (err, user) => {
 
-                // check to see if email is already in use
-                if (user) {
-                    return done(null, false, req.flash('signupMessage', 'That email is already in use.'));
-                }
-                else {
+                    if (err) {
+                        return done(err);
+                    }
 
-                    let newUser = new User();
+                    // check to see if email is already in use
+                    if (user) {
 
-                    // set the user's local credentials
-                    newUser.local.email = email;
-                    newUser.local.password = newUser.generateHash(password);
+                        // if user exists but has unlinked their account
+                        if (!user.local.email) {
 
-                    newUser.save(function(err) {
+                            user.local.email = email;
+                            user.local.password = user.generateHash(password);
 
-                        if (err) {
-                            throw err;
+                            user.save((err) => {
+
+                                if (err) {
+                                    throw err;
+                                }
+                                else {
+                                    return done(null, user);
+                                }
+                            })
                         }
 
-                        return done(null, newUser);
-                    });
-                }
+                        return done(null, false, req.flash('signupMessage', 'That email is already in use.'));
+                    }
+                    else {
+
+                        let newUser = new User();
+
+                        // set the user's local credentials
+                        newUser.local.email = email;
+                        newUser.local.password = newUser.generateHash(password);
+
+                        newUser.save((err) => {
+
+                            if (err) {
+                                throw err;
+                            }
+                            else {
+                                return done(null, newUser);
+                            }
+                        });
+                    }
+                });
             });
-        });
+        }
+        else {
+
+            let user = req.user;
+
+            user.local.email = email;
+            user.local.password = user.generateHash(password);
+
+            user.save((err) => {
+
+                if (err) {
+                    throw err;
+                }
+                else {
+                    return done(null, user);
+                }
+            })
+        }
+
+
     }));
 
     passport.use('local-login', new LocalStrategy({

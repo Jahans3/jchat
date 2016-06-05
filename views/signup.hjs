@@ -24,7 +24,7 @@
                 <form action="/signup" method="post">
 
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input type="text" class="mdl-textfield__input" id="login-user" name="email">
+                        <input type="email" class="mdl-textfield__input" id="login-user" name="email">
                         <label for="signup-user" class="mdl-textfield__label">Email</label>
                     </div>
 

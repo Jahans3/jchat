@@ -16,7 +16,7 @@
     </div>
 
     <div class="mdl-card__actions">
-        <form action="/connect/local" method="post">
+        <form action="/connect/local" method="get">
 
             <div class="mdl-textfield mdl-js-textfield">
                 <input type="text" class="mdl-textfield__input" id="login-user" name="email">

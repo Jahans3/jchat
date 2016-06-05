@@ -1,3 +1,4 @@
+/* layout */
 /* social */
 .mdl-card__title {
   background-color: #663399;
@@ -30,10 +31,13 @@
 .headernav__tab {
   display: table-cell; }
 
-.mdl-layout__tab-bar {
-  height: auto;
-  display: table;
-  table-layout: fixed; }
+.headernav__header {
+  background-color: #663399; }
+  .headernav__header .mdl-layout__tab-bar {
+    height: auto;
+    display: table;
+    table-layout: fixed;
+    background-color: #663399; }
 
 [class*="form__wrapper"] {
   margin: 0 auto;

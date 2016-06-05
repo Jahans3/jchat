@@ -20358,6 +20358,10 @@
 
 	var _HeaderTab2 = _interopRequireDefault(_HeaderTab);
 
+	var _Drawer = __webpack_require__(172);
+
+	var _Drawer2 = _interopRequireDefault(_Drawer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20374,10 +20378,44 @@
 	    function HeaderNav(props) {
 	        _classCallCheck(this, HeaderNav);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(HeaderNav).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(HeaderNav).call(this, props));
+
+	        _this.socket = io();
+	        _this.state = {
+	            user: 'jChat'
+	        };
+	        return _this;
 	    }
 
 	    _createClass(HeaderNav, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+
+	            var xhr = new XMLHttpRequest();
+
+	            xhr.open('GET', encodeURI('/username_request'));
+	            xhr.onload = function (response) {
+	                if (xhr.status == 200) {
+
+	                    var res = JSON.parse(response.target.response);
+	                    console.log(res);
+
+	                    this.setState({ user: res.facebook.name });
+	                    // res.local.email
+	                    // res.twitter. ?? have to ask twitter for extra permissions
+	                    // res.google.name.givenName + res.google.name.familyName
+	                } else {
+	                        console.log('bad response');
+	                    }
+	            }.bind(this);
+
+	            try {
+	                xhr.send();
+	            } catch (e) {
+	                console.log(e);
+	            }
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -20385,14 +20423,14 @@
 	                { className: 'mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs' },
 	                _react2.default.createElement(
 	                    'header',
-	                    { className: 'mdl-layout__header' },
+	                    { className: 'mdl-layout__header headernav__header' },
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'mdl-layout__header-row' },
 	                        _react2.default.createElement(
 	                            'span',
 	                            { className: 'mdl-layout-title' },
-	                            '@username'
+	                            this.state.user
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -20415,19 +20453,11 @@
 	                        )
 	                    )
 	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'mdl-layout__drawer' },
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'mdl-layout-title' },
-	                        'Settings'
-	                    )
-	                ),
+	                _react2.default.createElement(_Drawer2.default, null),
 	                _react2.default.createElement(
 	                    'main',
 	                    { className: 'mdl-layout__content' },
-	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '1' }),
+	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '1', customClass: 'is-active' }),
 	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '2' }),
 	                    _react2.default.createElement(_HeaderTab2.default, { tabId: '3' })
 	                )
@@ -20497,14 +20527,17 @@
 	            });
 
 	            this.button = document.getElementById('tab-button-' + this.props.tabId);
+	            this.form = document.getElementById('channel-form-' + this.props.tabId);
 
-	            this.button.addEventListener('click', function (e) {
+	            this.form.addEventListener('submit', function (e) {
 
 	                _this2.socket.emit('message', {
 
 	                    id: _this2.props.tabId,
 	                    textContent: document.getElementById('tab-input-' + _this2.props.tabId).value
 	                });
+
+	                e.preventDefault();
 	            });
 
 	            this.socket.on('distribute:channel-' + this.props.tabId, function (socket) {
@@ -20525,24 +20558,33 @@
 	            });
 	        }
 	    }, {
+	        key: 'prevDef',
+	        value: function prevDef(event) {
+	            event.preventDefault();
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 
 	            return _react2.default.createElement(
 	                'section',
-	                { className: 'mdl-layout__tab-panel is-active', id: 'fixed-tab-' + this.props.tabId },
+	                { className: 'mdl-layout__tab-panel ' + this.props.customClass, id: 'fixed-tab-' + this.props.tabId },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'page-content' },
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'mdl-card__title-text' },
-	                        _react2.default.createElement('input', { type: 'text', className: 'mdl-textfield__input', id: 'tab-input-' + this.props.tabId })
-	                    ),
-	                    _react2.default.createElement(
-	                        'button',
-	                        { id: 'tab-button-' + this.props.tabId, className: 'mdl-button' },
-	                        'Send'
+	                        _react2.default.createElement(
+	                            'form',
+	                            { id: 'channel-form-' + this.props.tabId, action: 'none' },
+	                            _react2.default.createElement('input', { type: 'text', className: 'mdl-textfield__input', id: 'tab-input-' + this.props.tabId }),
+	                            _react2.default.createElement(
+	                                'button',
+	                                { id: 'tab-button-' + this.props.tabId, className: 'mdl-button' },
+	                                'Send'
+	                            )
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
@@ -20558,6 +20600,81 @@
 	}(_react.Component);
 
 	exports.default = HeaderTab;
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by jahansj on 04/06/2016.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	var Drawer = function (_Component) {
+	    _inherits(Drawer, _Component);
+
+	    function Drawer() {
+	        _classCallCheck(this, Drawer);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Drawer).apply(this, arguments));
+	    }
+
+	    _createClass(Drawer, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "mdl-layout__drawer" },
+	                _react2.default.createElement(
+	                    "span",
+	                    { className: "mdl-layout-title" },
+	                    "Account"
+	                ),
+	                _react2.default.createElement(
+	                    "nav",
+	                    { className: "mdl-navigation" },
+	                    _react2.default.createElement(
+	                        "a",
+	                        { href: "/login", className: "mdl-navigation__link" },
+	                        "Login"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { href: "/signup", className: "mdl-navigation__link" },
+	                        "Sign Up"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { href: "/profile", className: "mdl-navigation__link" },
+	                        "View Profile"
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Drawer;
+	}(_react.Component);
+
+	exports.default = Drawer;
 
 /***/ }
 /******/ ]);
