@@ -71,7 +71,7 @@ router.get('/username_request', isLoggedInNoRedirect, (req, res) => {
         i++;
 
         if (i > 2) {
-            this.response = 'jChat';
+            this.response = 'Guest';
             break;
         }
     }
@@ -82,10 +82,10 @@ router.get('/username_request', isLoggedInNoRedirect, (req, res) => {
 function isLoggedInNoRedirect (req, res, next) {
 
     if (req.isAuthenticated()) {
-        console.log('user is authenticated');
+
         return next()
-    } else {
-        console.log('user is NOT authenticated');
+    }
+    else {
 
         res.send('jChat');
     }

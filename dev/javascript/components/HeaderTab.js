@@ -36,6 +36,7 @@ export default class HeaderTab extends Component {
                 username: this.props.username
             });
 
+            // prevent redirect
             e.preventDefault();
         });
 
@@ -57,15 +58,11 @@ export default class HeaderTab extends Component {
         })
     }
 
-    prevDef(event){
-        event.preventDefault();
-    }
-
     render(){
 
         return (
             <section className={`mdl-layout__tab-panel ${this.props.customClass}`} id={`fixed-tab-${this.props.tabId}`}>
-                <div className="page-content">
+                <div className="page-content feed__container">
 
                     <div className="mdl-card__title-text">
                         <form id={`channel-form-${this.props.tabId}`} action="none">
