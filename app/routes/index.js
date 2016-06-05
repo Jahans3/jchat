@@ -62,7 +62,13 @@ router.post('/signup', passport.authenticate('local-signup', {
 
 router.get('/username_request', isLoggedInNoRedirect, (req, res) => {
 
-    this.response = req.user;
+    this.response = req.user.local.email;
+
+    this.accounts = [req.user.facebook.name, req.user.google.email, req.user.twitter.name];
+
+    while (typeof this.response == 'undefined') {
+        this.response = this.accounts[i];
+    }
 
     res.send(this.response);
 });
@@ -77,7 +83,7 @@ function isLoggedInNoRedirect (req, res, next) {
 
         res.send('jChat');
     }
-};
+}
 
 
 /*

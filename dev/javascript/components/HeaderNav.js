@@ -25,12 +25,10 @@ export default class HeaderNav extends Component {
         xhr.onload = function (response) {
             if (xhr.status == 200) {
 
-                let res = JSON.parse(response.target.response);
+                let res = response.target.response;
                 console.log(res);
 
-
-
-                this.setState({ user: res.facebook.name });
+                this.setState({ user: res });
                 // res.local.email
                 // res.twitter. ?? have to ask twitter for extra permissions
                 // res.google.name.givenName + res.google.name.familyName
