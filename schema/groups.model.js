@@ -11,14 +11,17 @@ let groupSchema = mongoose.Schema({
     founder: String,
     channels: [{
         name: String,
-        users: [ String ]
+        users: [{
+            name: String,
+            accessLevel: Number
+        }]
     }],
     users: [{
         name: String,
-        permissions: Number,
+        admin: Boolean,
         channels: [ String ]
     }]
 
 });
 
-module.exports mongoose.model('Group', groupSchema);
+module.exports = mongoose.model('Group', groupSchema);
