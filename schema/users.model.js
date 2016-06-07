@@ -32,6 +32,11 @@ let userSchema = mongoose.Schema({
         token: String,
         email: String,
         name: Object
+    },
+
+    groups: {
+        adminOf: [ String ],
+        belongsTo: [ String ]
     }
 
 });
