@@ -13,13 +13,14 @@ let groupSchema = mongoose.Schema({
         name: String,
         users: [{
             name: String,
+            userid: String,
             accessLevel: Number
         }]
     }],
     users: [{
         name: String,
-        admin: Boolean,
-        channels: [ String ]
+        userid: String,
+        admin: Boolean
     }]
 
 });

@@ -24,12 +24,12 @@
                 <form action="/signup" method="post">
 
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input type="email" class="mdl-textfield__input" id="login-user" name="email">
+                        <input type="email" class="mdl-textfield__input" id="signup-user" name="email">
                         <label for="signup-user" class="mdl-textfield__label">Email</label>
                     </div>
 
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input type="password" class="mdl-textfield__input" id="login-password" name="password">
+                        <input type="password" class="mdl-textfield__input" id="signup-password" name="password">
                         <label for="signup-password" class="mdl-textfield__label">Password</label>
                     </div>
 

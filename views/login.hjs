@@ -20,12 +20,12 @@
 
                     <div class="mdl-textfield mdl-js-textfield">
                         <input type="text" class="mdl-textfield__input" id="login-user" name="email">
-                        <label for="signup-user" class="mdl-textfield__label">Email</label>
+                        <label for="login-user" class="mdl-textfield__label">Email</label>
                     </div>
 
                     <div class="mdl-textfield mdl-js-textfield">
                         <input type="password" class="mdl-textfield__input" id="login-password" name="password">
-                        <label for="signup-password" class="mdl-textfield__label">Password</label>
+                        <label for="login-password" class="mdl-textfield__label">Password</label>
                     </div>
 
                     <button class="mdl-button local-button" type="submit">Login</button>

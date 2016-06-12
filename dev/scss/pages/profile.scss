@@ -1,3 +1,22 @@
 .profile__text {
   text-overflow: ellipsis;
 }
+
+.profile-info__wrapper {
+  display: inline-block;
+  //width: 45%;
+}
+
+.group-manager__wrapper {
+  display: inline-block;
+  //width: 45%;
+}
+
+.form__wrapper--wide {
+  //width: 45%;
+  // mixin with breakpoints
+}
+
+.form__wrapper--thin {
+  //width: 20%;
+}

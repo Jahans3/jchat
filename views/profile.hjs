@@ -13,89 +13,133 @@
 </head>
 <body>
 
-<div class="mdl-card mdl-shadow--2dp form__wrapper">
+<div class="user_public_data" data-username="{{ user.local.email }}"></div>
+
+<div class="mdl-card mdl-shadow--2dp form__wrapper--wide">
 
     <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Welcome {{ user.local.email }}</h2>
     </div>
 
-    <br>
 
-    {{#user.local.password}}
-        <h4 class="mdl-card__title-text">Local Info</h4>
-        <div class="mdl-card__supporting-text profile__text">
-            <strong>ID</strong>: <span>{{ user._id }}</span>
-            <br>
-            <strong>Password</strong>: <span>{{ user.local.password }}</span>
+    <div class="profile-info__wrapper">
+        {{#user.local.password}}
+            <h4 class="mdl-card__title-text">Local Info</h4>
+            <div class="mdl-card__supporting-text profile__text">
+                <strong>ID</strong>: <span>{{ user._id }}</span>
+                <br>
+                <strong>Password</strong>: <span>{{ user.local.password }}</span>
 
-            <a href="/unlink/local" class="mdl-button local-button">Unlink</a>
-        </div>
-    {{/user.local.password}}
-    {{^user.local.password}}
-        <div class="mdl-card__supporting-text profile__text">
-            <a href="/connect/local-connect" class="mdl-button local-button">Connect locally</a>
-        </div>
-    {{/user.local.password}}
+                <a href="/unlink/local" class="mdl-button local-button">Unlink</a>
+            </div>
+        {{/user.local.password}}
+        {{^user.local.password}}
+            <div class="mdl-card__supporting-text profile__text">
+                <a href="/connect/local-connect" class="mdl-button local-button">Connect locally</a>
+            </div>
+        {{/user.local.password}}
 
+        {{#user.facebook.token}}
+            <h4 class="mdl-card__title-text">Facebook Info</h4>
+            <div class="mdl-card__supporting-text profile__text">
+                <strong>ID</strong>: {{ user.facebook.id }}<br>
+                <strong>Token</strong>: {{ user.facebook.token }}<br>
+                <strong>Email</strong>: {{ user.facebook.email }}<br>
+                <strong>Name</strong>: {{ user.facebook.name }}<br>
 
-    {{#user.facebook.token}}
-        <h4 class="mdl-card__title-text">Facebook Info</h4>
-        <div class="mdl-card__supporting-text profile__text">
-            <strong>ID</strong>: {{ user.facebook.id }}<br>
-            <strong>Token</strong>: {{ user.facebook.token }}<br>
-            <strong>Email</strong>: {{ user.facebook.email }}<br>
-            <strong>Name</strong>: {{ user.facebook.name }}<br>
+                <a href="/unlink/facebook" class="mdl-button button__facebook">Unlink</a>
+            </div>
+        {{/user.facebook.token}}
+        {{^user.facebook.token}}
+            <div class="mdl-card__supporting-text profile__text">
+                <a href="/connect/facebook" class="mdl-button button__facebook">Connect via Facebook</a>
+            </div>
+        {{/user.facebook.token}}
 
-            <a href="/unlink/facebook" class="mdl-button button__facebook">Unlink</a>
-        </div>
-    {{/user.facebook.token}}
-    {{^user.facebook.token}}
-        <div class="mdl-card__supporting-text profile__text">
-            <a href="/connect/facebook" class="mdl-button button__facebook">Connect via Facebook</a>
-        </div>
-    {{/user.facebook.token}}
+        <br>
 
-    <br>
+        {{#user.twitter.token}}
+            <h4 class="mdl-card__title-text">Twitter Info</h4>
+            <div class="mdl-card__supporting-text profile__text">
+                <strong>ID</strong>: {{ user.twitter.id }}<br>
+                <strong>Token</strong>: {{ user.twitter.token }}<br>
+                <strong>Email</strong>: {{ user.twitter.email }}<br>
+                <strong>Name</strong>: {{ user.twitter.name }}<br>
 
-    {{#user.twitter.token}}
-        <h4 class="mdl-card__title-text">Twitter Info</h4>
-        <div class="mdl-card__supporting-text profile__text">
-            <strong>ID</strong>: {{ user.twitter.id }}<br>
-            <strong>Token</strong>: {{ user.twitter.token }}<br>
-            <strong>Email</strong>: {{ user.twitter.email }}<br>
-            <strong>Name</strong>: {{ user.twitter.name }}<br>
+                <a href="/unlink/twitter" class="mdl-button button__twitter">Unlink</a>
+            </div>
+        {{/user.twitter.token}}
+        {{^user.twitter.token}}
+            <div class="mdl-card__supporting-text profile__text">
+                <a href="/connect/twitter" class="mdl-button button__twitter">Connect via Twitter</a>
+            </div>
+        {{/user.twitter.token}}
 
-            <a href="/unlink/twitter" class="mdl-button button__twitter">Unlink</a>
-        </div>
-    {{/user.twitter.token}}
-    {{^user.twitter.token}}
-        <div class="mdl-card__supporting-text profile__text">
-            <a href="/connect/twitter" class="mdl-button button__twitter">Connect via Twitter</a>
-        </div>
-    {{/user.twitter.token}}
+        {{#user.google.token}}
+            <h4 class="mdl-card__title-text">Google Info</h4>
+            <div class="mdl-card__supporting-text profile__text">
+                <strong>ID</strong>: {{ user.google.id }}<br>
+                <strong>Token</strong>: {{ user.google.token }}<br>
+                <strong>Email</strong>: {{ user.google.email }}<br>
+                <strong>Name</strong>: {{ user.google.name.givenName user.google.name.familyName }}<br>
 
-    {{#user.google.token}}
-        <h4 class="mdl-card__title-text">Google Info</h4>
-        <div class="mdl-card__supporting-text profile__text">
-            <strong>ID</strong>: {{ user.google.id }}<br>
-            <strong>Token</strong>: {{ user.google.token }}<br>
-            <strong>Email</strong>: {{ user.google.email }}<br>
-            <strong>Name</strong>: {{ user.google.name.givenName user.google.name.familyName }}<br>
+                <a href="/unlink/google" class="mdl-button button__google">Unlink</a>
+            </div>
+        {{/user.google.token}}
+        {{^user.google.token}}
+            <div class="mdl-card__supporting-text profile__text">
+                <a href="/connect/google" class="mdl-button button__google">Connect via Google</a>
+            </div>
+        {{/user.google.token}}
 
-            <a href="/unlink/google" class="mdl-button button__google">Unlink</a>
-        </div>
-    {{/user.google.token}}
-    {{^user.google.token}}
-        <div class="mdl-card__supporting-text profile__text">
-            <a href="/connect/google" class="mdl-button button__google">Connect via Google</a>
-        </div>
-    {{/user.google.token}}
+    </div>
 
     <div class="mdl-card__actions mdl-card--border">
         <a href="/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             Home
         </a>
     </div>
+</div>
+
+<div class="group-manager__wrapper mdl-card mdl-shadow--2dp form__wrapper--thin">
+
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Create a Group</h2>
+    </div>
+
+    <form action="/createGroup" method="post">
+        <div class="mdl-textfield mdl-js-textfield">
+            <input type="text" class="mdl-textfield__input" id="group-name" name="group_name">
+            <label class="mdl-textfield__label" for="group-name ">Group Name</label>
+        </div>
+
+        <p class="mdl-title-text">Create an Initial Channel</p>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input type="text" class="mdl-textfield__input" id="initial-channel-name" name="channel_name">
+            <label class="mdl-textfield__label" for="initial-channel-name">Initial channel name</label>
+        </div>
+
+        <p class="mdl-title-text">Your Info</p>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input type="text" class="mdl-textfield__input" id="thisuser-name" name="user_name" value="{{ user.local.email }}">
+            <input type="text" class="mdl-textfield__input" id="thisuser-id" name="user_id" value="{{ user._id }}">
+        </div>
+
+        <p class="mdl-title-text">Invite a Friend</p>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input type="text" class="mdl-textfield__input" id="friend-name" name="friend_name">
+            <label class="mdl-textfield__label" for="friend-name">Name</label>
+        </div>
+
+        <p style="width:300px">
+            <label class="mdl-slider__label" for="friend-permissions">Set your friend's permissions level</label>
+            <input class="mdl-slider mdl-js-slider" type="range" min="1" max="5" step="1" id="friend-permissions" name="friend_permissions">
+        </p>
+
+        <div class="mdl-card__actions mdl-card--border">
+            <input class="mdl-button" type="submit" value="Create Group">
+        </div>
+    </form>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

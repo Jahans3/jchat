@@ -79,3 +79,9 @@
 
 .profile__text {
   text-overflow: ellipsis; }
+
+.profile-info__wrapper {
+  display: inline-block; }
+
+.group-manager__wrapper {
+  display: inline-block; }

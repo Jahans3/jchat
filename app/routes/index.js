@@ -9,6 +9,7 @@ const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 const flash = require('connect-flash');
 const session = require('express-session');
+const Group = require('../../schema/groups.model');
 
 app.use(session({
     secret: 'supersecretsecret',
@@ -60,6 +61,73 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureFlash: true
 }));
 
+/* POST create channel */
+router.post('/createGroup', (req, res) => {
+    console.log(req.body);
+
+    Group.findOne({ 'name': req.body.group_name }, (err, group) => {
+
+        if (err) {
+            return done(err);
+        }
+
+        if (group) {
+            res.send(group);
+            //return done(null, group); // return group info
+        }
+
+        if (!group) {
+
+            let newGroup = new Group();
+            //let userObj = req.name
+
+
+            newGroup.name = req.body.group_name;
+            //newGroup.founder = userObj.name;
+            console.log(newGroup);
+
+            // group users
+            // set creating user as admin
+            newGroup.users[0] = {};
+            newGroup.users[0].name = req.body.user_name;
+            newGroup.users[0].admin = true;
+
+            newGroup.users[1] = {};
+            newGroup.users[1].name = req.body.friend_name;
+            //newGroup.users[1].name = findUserIdByName(req.body.friend_name); //TODO - findUserIdByName()
+            newGroup.users[1].admin = req.body.friend_permissions > 4 ? true : false;
+
+            // initial channel
+            newGroup.channels[0] = {};
+            newGroup.channels[0].name = req.body.channel_name;
+
+            newGroup.channels[0].users = [];
+            newGroup.channels[0].users[0] = {};
+            newGroup.channels[0].users[0].name = req.body.user_name;
+            newGroup.channels[0].users[0].userid = req.body.user_id;
+            newGroup.channels[0].users[0].accessLevel = 5;
+
+            newGroup.channels[0].users[1] = {};
+            newGroup.channels[0].users[1].name = req.body.friend_name;
+            //newGroup.channels[0].users[1].userid = findUserIdByName(req.body.friend_name); //TODO - findUserIdByName()
+            newGroup.channels[0].users[1].accessLevel = req.body.friend_permissions;
+
+            newGroup.save((err) => {
+
+                if (err) {
+                    throw err;
+                }
+
+                res.render('groupManager', { somedata: newGroup });
+                //done(null, newGroup); // do
+            });
+        }
+    });
+
+    //res.send({ groupMessage: 'Request Received' });
+});
+
+/* pass user data to the app */
 router.get('/username_request', isLoggedInNoRedirect, (req, res) => {
 
     this.response = req.user.local.email;
