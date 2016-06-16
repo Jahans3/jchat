@@ -1,21 +1,19 @@
 "use strict";
 
-const express = require('./routes/index').express;
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const passport = require('./routes/index').passport;
-
-const routes = require('./routes/index').router;
-const io = require('./routes/socket');
-const users = require('./routes/users');
+const index = require('./routes/index');
+const express = index.express;
+const passport = index.passport;
+const app = index.app;
+const routes = index.router;
 
 const dbConfig = require('../config/db.config.js');
 
-const app = require('./routes/index').app;
 
 // connect to db
 mongoose.connect(dbConfig.url);
@@ -32,12 +30,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../dist')));
 
+/* configure passport */
 require('../config/passport.config')(passport);
 
 //require('./routes/index').router;
 app.use('/', routes);
-//app.use(io);
-app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

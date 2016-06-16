@@ -21,7 +21,7 @@ export default class HeaderNav extends Component {
 
         let xhr = new XMLHttpRequest();
 
-        xhr.open('GET', encodeURI('/userdata_request'));
+        xhr.open('GET', encodeURI('userdata_request'));
         xhr.onload = function (response) {
             if (xhr.status == 200) {
 

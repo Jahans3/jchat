@@ -20393,7 +20393,7 @@
 
 	            var xhr = new XMLHttpRequest();
 
-	            xhr.open('GET', encodeURI('/username_request'));
+	            xhr.open('GET', encodeURI('userdata_request'));
 	            xhr.onload = function (response) {
 	                if (xhr.status == 200) {
 
@@ -20538,6 +20538,7 @@
 	                    username: _this2.props.username
 	                });
 
+	                // prevent redirect
 	                e.preventDefault();
 	            });
 
@@ -20559,11 +20560,6 @@
 	            });
 	        }
 	    }, {
-	        key: 'prevDef',
-	        value: function prevDef(event) {
-	            event.preventDefault();
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 
@@ -20572,7 +20568,7 @@
 	                { className: 'mdl-layout__tab-panel ' + this.props.customClass, id: 'fixed-tab-' + this.props.tabId },
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'page-content' },
+	                    { className: 'page-content feed__container' },
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'mdl-card__title-text' },
