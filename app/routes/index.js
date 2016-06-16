@@ -6,10 +6,10 @@ const app = express();
 const passport = require('passport');
 const http = require('http');
 const server = http.createServer(app);
-const io = require('socket.io').listen(server);
 const flash = require('connect-flash');
 const session = require('express-session');
 const Group = require('../../schema/groups.model');
+const User = require('../../schema/users.model');
 
 app.use(session({
     secret: 'supersecretsecret',
@@ -19,18 +19,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
-io.on('connection', /* TODO isLoggedIn */ (socket) => {
-
-    io.emit('thing', { data: 'thisisathing' });
-
-    socket.on('message', data => {
-        console.log(`distribute:channel-${data.id}: ${data.textContent}`);
-
-
-        io.emit(`distribute:channel-${data.id}`, { username: data.username, textContent: data.textContent });
-    });
-});
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -61,9 +49,22 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureFlash: true
 }));
 
+//TODO - add to userSchema methods
+function findUserIdByName (user, username) {
+
+
+    return user.findOne({ 'local.email': username }, (err, user) => {
+
+        if (err) {
+            console.log(err);
+        }
+
+        return user._id;
+    });
+}
+
 /* POST create channel */
 router.post('/createGroup', (req, res) => {
-    console.log(req.body);
 
     Group.findOne({ 'name': req.body.group_name }, (err, group) => {
 
@@ -79,38 +80,57 @@ router.post('/createGroup', (req, res) => {
         if (!group) {
 
             let newGroup = new Group();
-            //let userObj = req.name
+            let friendUser = new Promise((resolve, reject) => {
 
+                User.findOne({ 'local.email': req.body.friend_name}, (err, user) => {
+
+                    if (err) {
+                        reject(err);
+                    }
+
+                    resolve(user._id)
+                });
+            });
+
+            friendUser.then((userid) => {
+                console.log('promise lol: ' + userid);
+                newGroup.users[1] = {
+                    name: req.body.friend_name,
+                    userid: userid,//findUserIdByName(req.body.friend_name),
+                    admin: req.body.friend_permissions > 4
+                };
+            });
+
+            friendUser.catch((err) => {
+                console.log(err);
+            });
 
             newGroup.name = req.body.group_name;
-            //newGroup.founder = userObj.name;
-            console.log(newGroup);
+            newGroup.founder = req.body.user_name;
 
             // group users
             // set creating user as admin
-            newGroup.users[0] = {};
-            newGroup.users[0].name = req.body.user_name;
-            newGroup.users[0].admin = true;
-
-            newGroup.users[1] = {};
-            newGroup.users[1].name = req.body.friend_name;
-            //newGroup.users[1].name = findUserIdByName(req.body.friend_name); //TODO - findUserIdByName()
-            newGroup.users[1].admin = req.body.friend_permissions > 4 ? true : false;
+            newGroup.users[0] = {
+                name: req.body.user_name,
+                userid: req.body.user_id,
+                admin: true
+            };
 
             // initial channel
-            newGroup.channels[0] = {};
-            newGroup.channels[0].name = req.body.channel_name;
-
-            newGroup.channels[0].users = [];
-            newGroup.channels[0].users[0] = {};
-            newGroup.channels[0].users[0].name = req.body.user_name;
-            newGroup.channels[0].users[0].userid = req.body.user_id;
-            newGroup.channels[0].users[0].accessLevel = 5;
-
-            newGroup.channels[0].users[1] = {};
-            newGroup.channels[0].users[1].name = req.body.friend_name;
-            //newGroup.channels[0].users[1].userid = findUserIdByName(req.body.friend_name); //TODO - findUserIdByName()
-            newGroup.channels[0].users[1].accessLevel = req.body.friend_permissions;
+            newGroup.channels[0] = {
+                name: req.body.channel_name,
+                users: []
+            };
+            newGroup.channels[0].users[0] = {
+                name: req.body.user_name,
+                userid: req.body.user_id,
+                accessLevel: 5
+            };
+            newGroup.channels[0].users[1] = {
+                name: req.body.friend_name,
+                accessLevel: req.body.friend_permissions,
+                userId: '', //findUserIdByName(req.body.friend_name)
+            };
 
             newGroup.save((err) => {
 
@@ -119,7 +139,6 @@ router.post('/createGroup', (req, res) => {
                 }
 
                 res.render('groupManager', { somedata: newGroup });
-                //done(null, newGroup); // do
             });
         }
     });
@@ -134,7 +153,9 @@ router.get('/username_request', isLoggedInNoRedirect, (req, res) => {
     this.accounts = [req.user.facebook.name, req.user.google.email, req.user.twitter.name];
 
     let i = 0;
+
     while (this.response === undefined) {
+
         this.response = this.accounts[i];
         i++;
 

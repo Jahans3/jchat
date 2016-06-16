@@ -51,4 +51,16 @@ userSchema.methods.validPassword = function (password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
+userSchema.methods.findUserIdByName = function (username) {
+
+    return userSchema.findOne({ 'local.email': username }, (err, user) => {
+
+        if (err) {
+            throw err;
+        }
+
+        return user._id;
+    });
+};
+
 module.exports = mongoose.model('User', userSchema);
