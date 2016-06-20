@@ -22,9 +22,8 @@ module.exports = function (router) {
 
 
     /* pass user data to the app */
-    router.get('/userdata_request', isLoggedInNoRedirect, (req, res) => {
+    router.get('/username_request', isLoggedInNoRedirect, (req, res) => {
 
-        console.log(req.user);
 
         if (!req.user.local.email) {
             res.send('Guest')

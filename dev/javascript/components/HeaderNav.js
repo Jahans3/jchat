@@ -21,12 +21,11 @@ export default class HeaderNav extends Component {
 
         let xhr = new XMLHttpRequest();
 
-        xhr.open('GET', encodeURI('userdata_request'));
+        xhr.open('GET', encodeURI('username_request'));
         xhr.onload = function (response) {
             if (xhr.status == 200) {
 
                 let res = response.target.response;
-                console.log(res);
 
                 this.setState({ user: res });
                 // res.local.email

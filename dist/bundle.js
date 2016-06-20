@@ -20393,12 +20393,11 @@
 
 	            var xhr = new XMLHttpRequest();
 
-	            xhr.open('GET', encodeURI('userdata_request'));
+	            xhr.open('GET', encodeURI('username_request'));
 	            xhr.onload = function (response) {
 	                if (xhr.status == 200) {
 
 	                    var res = response.target.response;
-	                    console.log(res);
 
 	                    this.setState({ user: res });
 	                    // res.local.email
