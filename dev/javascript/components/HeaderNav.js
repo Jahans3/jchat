@@ -25,12 +25,7 @@ export default class HeaderNav extends Component {
         xhr.onload = function (response) {
             if (xhr.status == 200) {
 
-                let res = response.target.response;
-
-                this.setState({ user: res });
-                // res.local.email
-                // res.twitter. ?? have to ask twitter for extra permissions
-                // res.google.name.givenName + res.google.name.familyName
+                this.setState({ user: response.target.response });
             }
             else {
                 console.log('bad response');

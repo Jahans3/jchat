@@ -10,6 +10,7 @@ module.exports = function (io) {
         io.emit('thing', { data: 'thisisathing' });
 
         socket.on('message', data => {
+
             console.log(`distribute:channel-${data.id}: ${data.textContent}`);
 
             io.emit(`distribute:channel-${data.id}`, { username: data.username, textContent: data.textContent });

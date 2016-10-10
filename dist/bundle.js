@@ -20271,7 +20271,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "mdl-card mdl-shadow--2dp through mdl-shadow--16dp mdl-cell mdl-cell--3-col post__wrapper" },
+	                { className: "mdl-card mdl-shadow--2dp through mdl-shadow--16dp mdl-cell mdl-cell--12-col post__wrapper" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "mdl-card__title" },
@@ -20358,7 +20358,7 @@
 
 	var _HeaderTab2 = _interopRequireDefault(_HeaderTab);
 
-	var _Drawer = __webpack_require__(172);
+	var _Drawer = __webpack_require__(174);
 
 	var _Drawer2 = _interopRequireDefault(_Drawer);
 
@@ -20397,15 +20397,10 @@
 	            xhr.onload = function (response) {
 	                if (xhr.status == 200) {
 
-	                    var res = response.target.response;
-
-	                    this.setState({ user: res });
-	                    // res.local.email
-	                    // res.twitter. ?? have to ask twitter for extra permissions
-	                    // res.google.name.givenName + res.google.name.familyName
+	                    this.setState({ user: response.target.response });
 	                } else {
-	                        console.log('bad response');
-	                    }
+	                    console.log('bad response');
+	                }
 	            }.bind(this);
 
 	            try {
@@ -20489,6 +20484,14 @@
 
 	var _Post2 = _interopRequireDefault(_Post);
 
+	var _PostInput = __webpack_require__(172);
+
+	var _PostInput2 = _interopRequireDefault(_PostInput);
+
+	var _Feed = __webpack_require__(173);
+
+	var _Feed2 = _interopRequireDefault(_Feed);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20542,11 +20545,9 @@
 	            });
 
 	            this.socket.on('distribute:channel-' + this.props.tabId, function (socket) {
-
 	                _this2.messages.splice(0, 0, _react2.default.createElement(_Post2.default, { username: socket.username, textContent: socket.textContent }));
 
 	                if (_this2.messages.length > 9) {
-
 	                    _this2.messages.pop();
 	                }
 
@@ -20554,7 +20555,6 @@
 	            });
 
 	            this.socket.on('thing', function (data) {
-
 	                console.log('tab-input-' + _this2.props.tabId + ' has connected');
 	            });
 	        }
@@ -20564,29 +20564,12 @@
 
 	            return _react2.default.createElement(
 	                'section',
-	                { className: 'mdl-layout__tab-panel ' + this.props.customClass, id: 'fixed-tab-' + this.props.tabId },
+	                { className: 'feed__section mdl-layout__tab-panel ' + this.props.customClass, id: 'fixed-tab-' + this.props.tabId },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'page-content feed__container' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'mdl-card__title-text' },
-	                        _react2.default.createElement(
-	                            'form',
-	                            { id: 'channel-form-' + this.props.tabId, action: 'none' },
-	                            _react2.default.createElement('input', { type: 'text', className: 'mdl-textfield__input', id: 'tab-input-' + this.props.tabId }),
-	                            _react2.default.createElement(
-	                                'button',
-	                                { id: 'tab-button-' + this.props.tabId, className: 'mdl-button' },
-	                                'Send'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: "mdl-grid " + ('mdl-grid-' + this.props.tabId) },
-	                        this.state.messages
-	                    )
+	                    _react2.default.createElement(_PostInput2.default, { id: this.props.tabId }),
+	                    _react2.default.createElement(_Feed2.default, { id: this.props.tabId, content: this.state.messages })
 	                )
 	            );
 	        }
@@ -20599,6 +20582,117 @@
 
 /***/ },
 /* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by jahansj on 10/10/2016.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+	var PostInput = function (_Component) {
+	  _inherits(PostInput, _Component);
+
+	  function PostInput() {
+	    _classCallCheck(this, PostInput);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PostInput).call(this));
+	  }
+
+	  _createClass(PostInput, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "mdl-card__title-text chat-input-container" },
+	        _react2.default.createElement(
+	          "form",
+	          { id: "channel-form-" + this.props.id, action: "none" },
+	          _react2.default.createElement("input", { type: "text", className: "mdl-textfield__input", id: "tab-input-" + this.props.id }),
+	          _react2.default.createElement(
+	            "button",
+	            { id: "tab-button-" + this.props.id, className: "mdl-button" },
+	            "Send"
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return PostInput;
+	}(_react.Component);
+
+	exports.default = PostInput;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by jahansj on 10/10/2016.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+	var Feed = function (_Component) {
+	  _inherits(Feed, _Component);
+
+	  function Feed() {
+	    _classCallCheck(this, Feed);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Feed).call(this));
+	  }
+
+	  _createClass(Feed, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "mdl-grid " + ("mdl-grid-" + this.props.id) },
+	        this.props.content
+	      );
+	    }
+	  }]);
+
+	  return Feed;
+	}(_react.Component);
+
+	exports.default = Feed;
+
+/***/ },
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

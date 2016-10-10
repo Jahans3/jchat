@@ -21,6 +21,10 @@
         <h2 class="mdl-card__title-text">Welcome {{ user.local.email }}</h2>
     </div>
 
+    <div class="create-stuff__wrapper">
+        <a href="/groups">Create a group</a>
+    </div>
+
 
     <div class="profile-info__wrapper">
         {{#user.local.password}}
@@ -99,47 +103,6 @@
             Home
         </a>
     </div>
-</div>
-
-<div class="group-manager__wrapper mdl-card mdl-shadow--2dp form__wrapper--thin">
-
-    <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">Create a Group</h2>
-    </div>
-
-    <form action="/createGroup" method="post">
-        <div class="mdl-textfield mdl-js-textfield">
-            <input type="text" class="mdl-textfield__input" id="group-name" name="group_name">
-            <label class="mdl-textfield__label" for="group-name ">Group Name</label>
-        </div>
-
-        <p class="mdl-title-text">Create an Initial Channel</p>
-        <div class="mdl-textfield mdl-js-textfield">
-            <input type="text" class="mdl-textfield__input" id="initial-channel-name" name="channel_name">
-            <label class="mdl-textfield__label" for="initial-channel-name">Initial channel name</label>
-        </div>
-
-        <p class="mdl-title-text">Your Info</p>
-        <div class="mdl-textfield mdl-js-textfield">
-            <input type="text" class="mdl-textfield__input" id="thisuser-name" name="user_name" value="{{ user.local.email }}">
-            <input type="text" class="mdl-textfield__input" id="thisuser-id" name="user_id" value="{{ user._id }}">
-        </div>
-
-        <p class="mdl-title-text">Invite a Friend</p>
-        <div class="mdl-textfield mdl-js-textfield">
-            <input type="text" class="mdl-textfield__input" id="friend-name" name="friend_name">
-            <label class="mdl-textfield__label" for="friend-name">Name</label>
-        </div>
-
-        <p style="width:300px">
-            <label class="mdl-slider__label" for="friend-permissions">Set your friend's permissions level</label>
-            <input class="mdl-slider mdl-js-slider" type="range" min="1" max="5" step="1" id="friend-permissions" name="friend_permissions">
-        </p>
-
-        <div class="mdl-card__actions mdl-card--border">
-            <input class="mdl-button" type="submit" value="Create Group">
-        </div>
-    </form>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

@@ -4,6 +4,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import Post from './Post';
+import PostInput from './PostInput';
+import Feed from './Feed';
 
 export default class HeaderTab extends Component {
 
@@ -41,11 +43,9 @@ export default class HeaderTab extends Component {
         });
 
         this.socket.on(`distribute:channel-${this.props.tabId}`, socket => {
-
             this.messages.splice(0, 0, <Post username={socket.username} textContent={socket.textContent} />);
 
             if (this.messages.length > 9) {
-
                 this.messages.pop();
             }
 
@@ -53,7 +53,6 @@ export default class HeaderTab extends Component {
         });
 
         this.socket.on('thing', (data) => {
-
             console.log(`tab-input-${this.props.tabId} has connected`);
         })
     }
@@ -61,20 +60,12 @@ export default class HeaderTab extends Component {
     render(){
 
         return (
-            <section className={`mdl-layout__tab-panel ${this.props.customClass}`} id={`fixed-tab-${this.props.tabId}`}>
+            <section className={`feed__section mdl-layout__tab-panel ${this.props.customClass}`} id={`fixed-tab-${this.props.tabId}`}>
                 <div className="page-content feed__container">
 
-                    <div className="mdl-card__title-text">
-                        <form id={`channel-form-${this.props.tabId}`} action="none">
-                            <input type="text" className="mdl-textfield__input" id={`tab-input-${this.props.tabId}`}/>
-                            <button id={`tab-button-${this.props.tabId}`} className="mdl-button">Send</button>
-                        </form>
-                    </div>
+                    <PostInput id={this.props.tabId} />
 
-
-                    <div className={"mdl-grid " + `mdl-grid-${this.props.tabId}`}>
-                        {this.state.messages}
-                    </div>
+                    <Feed id={this.props.tabId} content={this.state.messages} />
 
                 </div>
             </section>

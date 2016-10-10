@@ -8,7 +8,6 @@ const http = require('http');
 const server = http.createServer(app);
 const flash = require('connect-flash');
 const session = require('express-session');
-const User = require('../../schema/users.model');
 const io = require('socket.io').listen(server);
 
 app.use(session({

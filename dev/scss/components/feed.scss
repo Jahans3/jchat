@@ -1,0 +1,43 @@
+.feed__section {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.feed__container {
+
+}
+
+.chat-input-container {
+  border: 1px solid #663399;
+  margin-top: 35px;
+  padding: 20px 0;
+  box-shadow: 0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.2);
+
+  form {
+    width: 100%;
+    text-align: center;
+
+    [id*="tab-input-"] {
+      width: 600px;
+      display: inline-block;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    .mdl-button {
+      width: 125px;
+      margin: 0 20px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      background-color: #2ecc71;
+      transition: background-color 0.5s ease;
+
+      &:hover {
+        background-color: rgba(46, 204, 113, 0.7);
+      }
+    }
+  }
+}

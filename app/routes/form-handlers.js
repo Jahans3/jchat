@@ -99,7 +99,7 @@ module.exports = function (router, passport) {
                 newGroup.channels[0].users[1] = {
                     name: req.body.friend_name,
                     accessLevel: req.body.friend_permissions,
-                    userId: '', //findUserIdByName(req.body.friend_name)
+                    userId: '' //findUserIdByName(req.body.friend_name)
                 };
 
                 newGroup.save((err) => {
@@ -108,7 +108,8 @@ module.exports = function (router, passport) {
                         throw err;
                     }
 
-                    res.render('groupManager', { somedata: newGroup });
+                    // query all of user's group and return
+                    res.render('groups-manager', { groupData: newGroup });
                 });
             }
         });

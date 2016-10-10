@@ -97,8 +97,8 @@ module.exports = function (router, passport) {
 
     /* handle google callback */
     router.get('/connect/google/callback', passport.authorize('google', {
-        successRedirect : '/profile',
-        failureRedirect : '/'
+        successRedirect: '/profile',
+        failureRedirect: '/'
     }));
 
     /* unlink a google account */
@@ -121,9 +121,9 @@ module.exports = function (router, passport) {
 
     /* handle local login being connected to account */
     router.get('/connect/local', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
+        successRedirect: '/profile', // redirect to the secure profile section
+        failureRedirect: '/connect/local', // redirect back to the signup page if there is an error
+        failureFlash: true // allow flash messages
     }));
 
     /* connect a local login to account */
@@ -133,9 +133,10 @@ module.exports = function (router, passport) {
 
     /* unlink a local account */
     router.get('/unlink/local', (req, res) => {
+
         var user = req.user;
 
-        user.local.email    = undefined;
+        user.local.email = undefined;
         user.local.password = undefined;
 
         user.save(function(err) {
