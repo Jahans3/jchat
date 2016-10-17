@@ -8,7 +8,7 @@ export default class PostInput extends Component {
   constructor() {
     super();
   }
-  
+
   render() {
     return (
         <div className="mdl-card__title-text chat-input-container">
